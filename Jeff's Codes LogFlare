@@ -1,0 +1,750 @@
+Sat Nov 27 2021 23:34:07 Initialized on node logflare@10.128.0.52. Waiting for new events. Send some logs, then try to explore & search!
+Sat Nov 27 2021 23:39:24 static | 200 | pharaoh-five.vercel.app | /_next/image?url=%2Fvercel.svg&w=96&q=75 | 3.250.77.200 | Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/92.0.4512.0 Safari/537.36 (Checkly, https://www.checklyhq.com) metadata
+{
+  "deploymentId": "dpl_HfG1DtZfD6hRXH9ryUWSEo9rKbWz",
+  "host": "pharaoh-hvzcuhx0o-pharaoh911.vercel.app",
+  "id": "1638081564862957326721804553",
+  "path": "vercel.svg",
+  "projectId": "prj_xtoLzdzuM3WeJDjhbC7Uvwl6oG7d",
+  "proxy": {
+    "cacheId": "vcf99-1636598366432-27fd62554b47",
+    "clientIp": "3.250.77.200",
+    "host": "pharaoh-five.vercel.app",
+    "method": "GET",
+    "path": "/_next/image?url=%2Fvercel.svg&w=96&q=75",
+    "referer": "https://pharaoh-five.vercel.app/",
+    "region": "dub1",
+    "scheme": "https",
+    "statusCode": 200,
+    "timestamp": 1638081564858,
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/92.0.4512.0 Safari/537.36 (Checkly, https://www.checklyhq.com)"
+  },
+  "requestId": "lkxrx-1638081564858-46a651ba5076",
+  "source": "static",
+  "timestamp": 1638081564862
+}
+Sat Nov 27 2021 23:39:25 static | 200 | pharaoh-five.vercel.app | /_next/image?url=%2Fvercel.svg&w=96&q=75 | 34.253.162.143 | Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/92.0.4512.0 Safari/537.36 (Checkly, https://www.checklyhq.com) metadata
+{
+  "deploymentId": "dpl_HfG1DtZfD6hRXH9ryUWSEo9rKbWz",
+  "host": "pharaoh-hvzcuhx0o-pharaoh911.vercel.app",
+  "id": "1638081565123957326721804559",
+  "path": "vercel.svg",
+  "projectId": "prj_xtoLzdzuM3WeJDjhbC7Uvwl6oG7d",
+  "proxy": {
+    "cacheId": "vcf99-1636598366432-27fd62554b47",
+    "clientIp": "34.253.162.143",
+    "host": "pharaoh-five.vercel.app",
+    "method": "GET",
+    "path": "/_next/image?url=%2Fvercel.svg&w=96&q=75",
+    "referer": "https://pharaoh-five.vercel.app/",
+    "region": "dub1",
+    "scheme": "https",
+    "statusCode": 200,
+    "timestamp": 1638081565123,
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/92.0.4512.0 Safari/537.36 (Checkly, https://www.checklyhq.com)"
+  },
+  "requestId": "lkxrx-1638081565123-4d495e87962b",
+  "source": "static",
+  "timestamp": 1638081565123
+}
+Sat Nov 27 2021 23:42:24 Initialized on node logflare@10.128.0.50. Waiting for new events. Send some logs, then try to explore & search!
+Sat Nov 27 2021 23:51:19 Initialized on node logflare@10.128.0.53. Waiting for new events. Send some logs, then try to explore & search!
+Sun Nov 28 2021 00:18:13 static | 200 | vecel-six.vercel.app | /_next/image?url=%2Fvercel.svg&w=96&q=75 | 54.83.153.197 | Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/92.0.4512.0 Safari/537.36 (Checkly, https://www.checklyhq.com) metadata
+{
+  "deploymentId": "dpl_6hy9TfnzUrSaHvQP17wLgDAyYBz2",
+  "host": "vecel-kzsc3j3e5-pharaoh911.vercel.app",
+  "id": "1638083893347685967900185660",
+  "path": "vercel.svg",
+  "projectId": "prj_ox429kzWai6z0T0qTAFsNH5Gsz69",
+  "proxy": {
+    "clientIp": "54.83.153.197",
+    "host": "vecel-six.vercel.app",
+    "method": "GET",
+    "path": "/_next/image?url=%2Fvercel.svg&w=96&q=75",
+    "referer": "https://vecel-six.vercel.app/",
+    "region": "iad1",
+    "scheme": "https",
+    "statusCode": 200,
+    "timestamp": 1638083893267,
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/92.0.4512.0 Safari/537.36 (Checkly, https://www.checklyhq.com)"
+  },
+  "requestId": "7x5k5-1638083893267-08123096dc11",
+  "source": "static",
+  "statusCode": 200,
+  "timestamp": 1638083893347
+}
+Sun Nov 28 2021 00:32:38 static | 200 | pharaoh-five.vercel.app | /_next/image?url=%2Fvercel.svg&w=96&q=75 | 162.157.13.38 | Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36 metadata
+{
+  "deploymentId": "dpl_HfG1DtZfD6hRXH9ryUWSEo9rKbWz",
+  "host": "pharaoh-hvzcuhx0o-pharaoh911.vercel.app",
+  "id": "1638084758835809752878344919",
+  "path": "vercel.svg",
+  "projectId": "prj_xtoLzdzuM3WeJDjhbC7Uvwl6oG7d",
+  "proxy": {
+    "clientIp": "162.157.13.38",
+    "host": "pharaoh-five.vercel.app",
+    "method": "GET",
+    "path": "/_next/image?url=%2Fvercel.svg&w=96&q=75",
+    "referer": "https://pharaoh-five.vercel.app/",
+    "region": "pdx1",
+    "scheme": "https",
+    "statusCode": 200,
+    "timestamp": 1638084758804,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36"
+  },
+  "requestId": "n2wkd-1638084758804-4a2b2db06388",
+  "source": "static",
+  "statusCode": 200,
+  "timestamp": 1638084758835
+}
+Sun Nov 28 2021 00:39:25 static | 200 | pharaoh-five.vercel.app | /_next/image?url=%2Fvercel.svg&w=96&q=75 | 54.210.230.234 | Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/92.0.4512.0 Safari/537.36 (Checkly, https://www.checklyhq.com) metadata
+{
+  "deploymentId": "dpl_HfG1DtZfD6hRXH9ryUWSEo9rKbWz",
+  "host": "pharaoh-hvzcuhx0o-pharaoh911.vercel.app",
+  "id": "1638085165180108381352359773",
+  "path": "vercel.svg",
+  "projectId": "prj_xtoLzdzuM3WeJDjhbC7Uvwl6oG7d",
+  "proxy": {
+    "clientIp": "54.210.230.234",
+    "host": "pharaoh-five.vercel.app",
+    "method": "GET",
+    "path": "/_next/image?url=%2Fvercel.svg&w=96&q=75",
+    "referer": "https://pharaoh-five.vercel.app/",
+    "region": "iad1",
+    "scheme": "https",
+    "statusCode": 200,
+    "timestamp": 1638085165176,
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/92.0.4512.0 Safari/537.36 (Checkly, https://www.checklyhq.com)"
+  },
+  "requestId": "cwv4p-1638085165176-973ee8cbf823",
+  "source": "static",
+  "statusCode": 200,
+  "timestamp": 1638085165180
+}
+Sun Nov 28 2021 01:18:12 static | 200 | vecel-six.vercel.app | /_next/image?url=%2Fvercel.svg&w=96&q=75 | 54.246.187.251 | Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/92.0.4512.0 Safari/537.36 (Checkly, https://www.checklyhq.com) metadata
+{
+  "deploymentId": "dpl_6hy9TfnzUrSaHvQP17wLgDAyYBz2",
+  "host": "vecel-kzsc3j3e5-pharaoh911.vercel.app",
+  "id": "1638087492922854637908341371",
+  "path": "vercel.svg",
+  "projectId": "prj_ox429kzWai6z0T0qTAFsNH5Gsz69",
+  "proxy": {
+    "cacheId": "5sj9h-1636597094607-613d5abd19fc",
+    "clientIp": "54.246.187.251",
+    "host": "vecel-six.vercel.app",
+    "method": "GET",
+    "path": "/_next/image?url=%2Fvercel.svg&w=96&q=75",
+    "referer": "https://vecel-six.vercel.app/",
+    "region": "dub1",
+    "scheme": "https",
+    "statusCode": 200,
+    "timestamp": 1638087492919,
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/92.0.4512.0 Safari/537.36 (Checkly, https://www.checklyhq.com)"
+  },
+  "requestId": "5wwtv-1638087492919-46347206f722",
+  "source": "static",
+  "timestamp": 1638087492922
+}
+Sun Nov 28 2021 01:18:13 static | 200 | vecel-six.vercel.app | /_next/image?url=%2Fvercel.svg&w=96&q=75 | 34.254.198.208 | Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/92.0.4512.0 Safari/537.36 (Checkly, https://www.checklyhq.com) metadata
+{
+  "deploymentId": "dpl_6hy9TfnzUrSaHvQP17wLgDAyYBz2",
+  "host": "vecel-kzsc3j3e5-pharaoh911.vercel.app",
+  "id": "1638087493376966814750873593",
+  "path": "vercel.svg",
+  "projectId": "prj_ox429kzWai6z0T0qTAFsNH5Gsz69",
+  "proxy": {
+    "cacheId": "5sj9h-1636597094607-613d5abd19fc",
+    "clientIp": "34.254.198.208",
+    "host": "vecel-six.vercel.app",
+    "method": "GET",
+    "path": "/_next/image?url=%2Fvercel.svg&w=96&q=75",
+    "referer": "https://vecel-six.vercel.app/",
+    "region": "dub1",
+    "scheme": "https",
+    "statusCode": 200,
+    "timestamp": 1638087493233,
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/92.0.4512.0 Safari/537.36 (Checkly, https://www.checklyhq.com)"
+  },
+  "requestId": "7mpms-1638087493233-5e67079a8aef",
+  "source": "static",
+  "timestamp": 1638087493376
+}
+Sun Nov 28 2021 01:39:24 static | 200 | pharaoh-five.vercel.app | /_next/image?url=%2Fvercel.svg&w=96&q=75 | 54.228.2.94 | Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/92.0.4512.0 Safari/537.36 (Checkly, https://www.checklyhq.com) metadata
+{
+  "deploymentId": "dpl_HfG1DtZfD6hRXH9ryUWSEo9rKbWz",
+  "host": "pharaoh-hvzcuhx0o-pharaoh911.vercel.app",
+  "id": "1638088764783966814750813718",
+  "path": "vercel.svg",
+  "projectId": "prj_xtoLzdzuM3WeJDjhbC7Uvwl6oG7d",
+  "proxy": {
+    "cacheId": "vcf99-1636598366432-27fd62554b47",
+    "clientIp": "54.228.2.94",
+    "host": "pharaoh-five.vercel.app",
+    "method": "GET",
+    "path": "/_next/image?url=%2Fvercel.svg&w=96&q=75",
+    "referer": "https://pharaoh-five.vercel.app/",
+    "region": "dub1",
+    "scheme": "https",
+    "statusCode": 200,
+    "timestamp": 1638088764781,
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/92.0.4512.0 Safari/537.36 (Checkly, https://www.checklyhq.com)"
+  },
+  "requestId": "7mpms-1638088764781-4ffbee45ddf7",
+  "source": "static",
+  "timestamp": 1638088764783
+}
+Sun Nov 28 2021 01:39:25 static | 200 | pharaoh-five.vercel.app | /_next/image?url=%2Fvercel.svg&w=96&q=75 | 3.249.83.157 | Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/92.0.4512.0 Safari/537.36 (Checkly, https://www.checklyhq.com) metadata
+{
+  "deploymentId": "dpl_HfG1DtZfD6hRXH9ryUWSEo9rKbWz",
+  "host": "pharaoh-hvzcuhx0o-pharaoh911.vercel.app",
+  "id": "1638088765174026274292229799",
+  "path": "vercel.svg",
+  "projectId": "prj_xtoLzdzuM3WeJDjhbC7Uvwl6oG7d",
+  "proxy": {
+    "cacheId": "vcf99-1636598366432-27fd62554b47",
+    "clientIp": "3.249.83.157",
+    "host": "pharaoh-five.vercel.app",
+    "method": "GET",
+    "path": "/_next/image?url=%2Fvercel.svg&w=96&q=75",
+    "referer": "https://pharaoh-five.vercel.app/",
+    "region": "dub1",
+    "scheme": "https",
+    "statusCode": 200,
+    "timestamp": 1638088765171,
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/92.0.4512.0 Safari/537.36 (Checkly, https://www.checklyhq.com)"
+  },
+  "requestId": "ztvjk-1638088765171-1a56310d03ac",
+  "source": "static",
+  "timestamp": 1638088765174
+}
+Sun Nov 28 2021 02:18:13 static | 200 | vecel-six.vercel.app | /_next/image?url=%2Fvercel.svg&w=96&q=75 | 3.237.23.92 | Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/92.0.4512.0 Safari/537.36 (Checkly, https://www.checklyhq.com) metadata
+{
+  "deploymentId": "dpl_6hy9TfnzUrSaHvQP17wLgDAyYBz2",
+  "host": "vecel-kzsc3j3e5-pharaoh911.vercel.app",
+  "id": "1638091093257420510495124468",
+  "path": "vercel.svg",
+  "projectId": "prj_ox429kzWai6z0T0qTAFsNH5Gsz69",
+  "proxy": {
+    "clientIp": "3.237.23.92",
+    "host": "vecel-six.vercel.app",
+    "method": "GET",
+    "path": "/_next/image?url=%2Fvercel.svg&w=96&q=75",
+    "referer": "https://vecel-six.vercel.app/",
+    "region": "iad1",
+    "scheme": "https",
+    "statusCode": 200,
+    "timestamp": 1638091093181,
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/92.0.4512.0 Safari/537.36 (Checkly, https://www.checklyhq.com)"
+  },
+  "requestId": "mzhjz-1638091093181-e1d6a5c2f5fd",
+  "source": "static",
+  "statusCode": 200,
+  "timestamp": 1638091093257
+}
+
+{
+  "deploymentId": "dpl_HfG1DtZfD6hRXH9ryUWSEo9rKbWz",
+  "host": "pharaoh-hvzcuhx0o-pharaoh911.vercel.app",
+  "id": "1637973565286501988898549595",
+  "path": "vercel.svg",
+  "projectId": "prj_xtoLzdzuM3WeJDjhbC7Uvwl6oG7d",
+  "proxy": {
+    "cacheId": "vcf99-1636598366432-27fd62554b47",
+    "clientIp": "34.245.47.133",
+    "host": "pharaoh-five.vercel.app",
+    "method": "GET",
+    "path": "/_next/image?url=%2Fvercel.svg&w=96&q=75",
+    "referer": "https://pharaoh-five.vercel.app/",
+    "region": "dub1",
+    "scheme": "https",
+    "statusCode": 200,
+    "timestamp": 1637973565282,
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/92.0.4512.0 Safari/537.36 (Checkly, https://www.checklyhq.com)"
+  },
+  "requestId": "5zphf-1637973565282-e710a02a249a",
+  "source": "static",
+  "timestamp": 1637973565286
+}
+{
+  "deploymentId": "dpl_HfG1DtZfD6hRXH9ryUWSEo9rKbWz",
+  "host": "pharaoh-hvzcuhx0o-pharaoh911.vercel.app",
+  "id": "1637973565286501988898549595",
+  "path": "vercel.svg",
+  "projectId": "prj_xtoLzdzuM3WeJDjhbC7Uvwl6oG7d",
+  "proxy": {
+    "cacheId": "vcf99-1636598366432-27fd62554b47",
+    "clientIp": "34.245.47.133",
+    "host": "pharaoh-five.vercel.app",
+    "method": "GET",
+    "path": "/_next/image?url=%2Fvercel.svg&w=96&q=75",
+    "referer": "https://pharaoh-five.vercel.app/",
+    "region": "dub1",
+    "scheme": "https",
+    "statusCode": 200,
+    "timestamp": 1637973565282,
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/92.0.4512.0 Safari/537.36 (Checkly, https://www.checklyhq.com)"
+  },
+  "requestId": "5zphf-1637973565282-e710a02a249a",
+  "source": "static",
+  "timestamp": 1637973565286
+}
+{
+  "deploymentId": "dpl_6hy9TfnzUrSaHvQP17wLgDAyYBz2",
+  "host": "vecel-kzsc3j3e5-pharaoh911.vercel.app",
+  "id": "1638091093257420510495124468",
+  "path": "vercel.svg",
+  "projectId": "prj_ox429kzWai6z0T0qTAFsNH5Gsz69",
+  "proxy": {
+    "clientIp": "3.237.23.92",
+    "host": "vecel-six.vercel.app",
+    "method": "GET",
+    "path": "/_next/image?url=%2Fvercel.svg&w=96&q=75",
+    "referer": "https://vecel-six.vercel.app/",
+    "region": "iad1",
+    "scheme": "https",
+    "statusCode": 200,
+    "timestamp": 1638091093181,
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/92.0.4512.0 Safari/537.36 (Checkly, https://www.checklyhq.com)"
+  },
+  "requestId": "mzhjz-1638091093181-e1d6a5c2f5fd",
+  "source": "static",
+  "statusCode": 200,
+  "timestamp": 1638091093257
+}
+{
+  "deploymentId": "dpl_6hy9TfnzUrSaHvQP17wLgDAyYBz2",
+  "host": "vecel-kzsc3j3e5-pharaoh911.vercel.app",
+  "id": "1638091093257420510495124468",
+  "path": "vercel.svg",
+  "projectId": "prj_ox429kzWai6z0T0qTAFsNH5Gsz69",
+  "proxy": {
+    "clientIp": "3.237.23.92",
+    "host": "vecel-six.vercel.app",
+    "method": "GET",
+    "path": "/_next/image?url=%2Fvercel.svg&w=96&q=75",
+    "referer": "https://vecel-six.vercel.app/",
+    "region": "iad1",
+    "scheme": "https",
+    "statusCode": 200,
+    "timestamp": 1638091093181,
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/92.0.4512.0 Safari/537.36 (Checkly, https://www.checklyhq.com)"
+  },
+  "requestId": "mzhjz-1638091093181-e1d6a5c2f5fd",
+  "source": "static",
+  "statusCode": 200,
+  "timestamp": 1638091093257
+}
+{
+  "deploymentId": "dpl_HfG1DtZfD6hRXH9ryUWSEo9rKbWz",
+  "host": "pharaoh-hvzcuhx0o-pharaoh911.vercel.app",
+  "id": "1638088765174026274292229799",
+  "path": "vercel.svg",
+  "projectId": "prj_xtoLzdzuM3WeJDjhbC7Uvwl6oG7d",
+  "proxy": {
+    "cacheId": "vcf99-1636598366432-27fd62554b47",
+    "clientIp": "3.249.83.157",
+    "host": "pharaoh-five.vercel.app",
+    "method": "GET",
+    "path": "/_next/image?url=%2Fvercel.svg&w=96&q=75",
+    "referer": "https://pharaoh-five.vercel.app/",
+    "region": "dub1",
+    "scheme": "https",
+    "statusCode": 200,
+    "timestamp": 1638088765171,
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/92.0.4512.0 Safari/537.36 (Checkly, https://www.checklyhq.com)"
+  },
+  "requestId": "ztvjk-1638088765171-1a56310d03ac",
+  "source": "static",
+  "timestamp": 1638088765174
+}
+{
+  "deploymentId": "dpl_HfG1DtZfD6hRXH9ryUWSEo9rKbWz",
+  "host": "pharaoh-hvzcuhx0o-pharaoh911.vercel.app",
+  "id": "1638088765174026274292229799",
+  "path": "vercel.svg",
+  "projectId": "prj_xtoLzdzuM3WeJDjhbC7Uvwl6oG7d",
+  "proxy": {
+    "cacheId": "vcf99-1636598366432-27fd62554b47",
+    "clientIp": "3.249.83.157",
+    "host": "pharaoh-five.vercel.app",
+    "method": "GET",
+    "path": "/_next/image?url=%2Fvercel.svg&w=96&q=75",
+    "referer": "https://pharaoh-five.vercel.app/",
+    "region": "dub1",
+    "scheme": "https",
+    "statusCode": 200,
+    "timestamp": 1638088765171,
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/92.0.4512.0 Safari/537.36 (Checkly, https://www.checklyhq.com)"
+  },
+  "requestId": "ztvjk-1638088765171-1a56310d03ac",
+  "source": "static",
+  "timestamp": 1638088765174
+}
+{
+  "deploymentId": "dpl_HfG1DtZfD6hRXH9ryUWSEo9rKbWz",
+  "host": "pharaoh-hvzcuhx0o-pharaoh911.vercel.app",
+  "id": "1638084758835809752878344919",
+  "path": "vercel.svg",
+  "projectId": "prj_xtoLzdzuM3WeJDjhbC7Uvwl6oG7d",
+  "proxy": {
+    "clientIp": "162.157.13.38",
+    "host": "pharaoh-five.vercel.app",
+    "method": "GET",
+    "path": "/_next/image?url=%2Fvercel.svg&w=96&q=75",
+    "referer": "https://pharaoh-five.vercel.app/",
+    "region": "pdx1",
+    "scheme": "https",
+    "statusCode": 200,
+    "timestamp": 1638084758804,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36"
+  },
+  "requestId": "n2wkd-1638084758804-4a2b2db06388",
+  "source": "static",
+  "statusCode": 200,
+  "timestamp": 1638084758835
+}
+{
+  "deploymentId": "dpl_HfG1DtZfD6hRXH9ryUWSEo9rKbWz",
+  "host": "pharaoh-hvzcuhx0o-pharaoh911.vercel.app",
+  "id": "1638084758835809752878344919",
+  "path": "vercel.svg",
+  "projectId": "prj_xtoLzdzuM3WeJDjhbC7Uvwl6oG7d",
+  "proxy": {
+    "clientIp": "162.157.13.38",
+    "host": "pharaoh-five.vercel.app",
+    "method": "GET",
+    "path": "/_next/image?url=%2Fvercel.svg&w=96&q=75",
+    "referer": "https://pharaoh-five.vercel.app/",
+    "region": "pdx1",
+    "scheme": "https",
+    "statusCode": 200,
+    "timestamp": 1638084758804,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36"
+  },
+  "requestId": "n2wkd-1638084758804-4a2b2db06388",
+  "source": "static",
+  "statusCode": 200,
+  "timestamp": 1638084758835
+}
+
+Sat Nov 27 2021 23:20:45 Initialized on node logflare@10.128.0.48. Waiting for new events. Send some logs, then try to explore & search!
+Sat Nov 27 2021 23:34:09 Initialized on node logflare@10.128.0.52. Waiting for new events. Send some logs, then try to explore & search!
+Sat Nov 27 2021 23:39:24 static | 200 | pharaoh-five.vercel.app | /_next/image?url=%2Fvercel.svg&w=96&q=75 | 3.250.77.200 | Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/92.0.4512.0 Safari/537.36 (Checkly, https://www.checklyhq.com) metadata
+{
+  "deploymentId": "dpl_HfG1DtZfD6hRXH9ryUWSEo9rKbWz",
+  "host": "pharaoh-hvzcuhx0o-pharaoh911.vercel.app",
+  "id": "1638081564862957326721804553",
+  "path": "vercel.svg",
+  "projectId": "prj_xtoLzdzuM3WeJDjhbC7Uvwl6oG7d",
+  "proxy": {
+    "cacheId": "vcf99-1636598366432-27fd62554b47",
+    "clientIp": "3.250.77.200",
+    "host": "pharaoh-five.vercel.app",
+    "method": "GET",
+    "path": "/_next/image?url=%2Fvercel.svg&w=96&q=75",
+    "referer": "https://pharaoh-five.vercel.app/",
+    "region": "dub1",
+    "scheme": "https",
+    "statusCode": 200,
+    "timestamp": 1638081564858,
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/92.0.4512.0 Safari/537.36 (Checkly, https://www.checklyhq.com)"
+  },
+  "requestId": "lkxrx-1638081564858-46a651ba5076",
+  "source": "static",
+  "timestamp": 1638081564862
+}
+Sat Nov 27 2021 23:39:25 static | 200 | pharaoh-five.vercel.app | /_next/image?url=%2Fvercel.svg&w=96&q=75 | 34.253.162.143 | Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/92.0.4512.0 Safari/537.36 (Checkly, https://www.checklyhq.com) metadata
+{
+  "deploymentId": "dpl_HfG1DtZfD6hRXH9ryUWSEo9rKbWz",
+  "host": "pharaoh-hvzcuhx0o-pharaoh911.vercel.app",
+  "id": "1638081565123957326721804559",
+  "path": "vercel.svg",
+  "projectId": "prj_xtoLzdzuM3WeJDjhbC7Uvwl6oG7d",
+  "proxy": {
+    "cacheId": "vcf99-1636598366432-27fd62554b47",
+    "clientIp": "34.253.162.143",
+    "host": "pharaoh-five.vercel.app",
+    "method": "GET",
+    "path": "/_next/image?url=%2Fvercel.svg&w=96&q=75",
+    "referer": "https://pharaoh-five.vercel.app/",
+    "region": "dub1",
+    "scheme": "https",
+    "statusCode": 200,
+    "timestamp": 1638081565123,
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/92.0.4512.0 Safari/537.36 (Checkly, https://www.checklyhq.com)"
+  },
+  "requestId": "lkxrx-1638081565123-4d495e87962b",
+  "source": "static",
+  "timestamp": 1638081565123
+}
+Sat Nov 27 2021 23:42:25 Initialized on node logflare@10.128.0.50. Waiting for new events. Send some logs, then try to explore & search!
+Sat Nov 27 2021 23:51:07 Initialized on node logflare@10.128.0.53. Waiting for new events. Send some logs, then try to explore & search!
+Sun Nov 28 2021 00:18:13 static | 200 | vecel-six.vercel.app | /_next/image?url=%2Fvercel.svg&w=96&q=75 | 54.83.153.197 | Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/92.0.4512.0 Safari/537.36 (Checkly, https://www.checklyhq.com) metadata
+{
+  "deploymentId": "dpl_6hy9TfnzUrSaHvQP17wLgDAyYBz2",
+  "host": "vecel-kzsc3j3e5-pharaoh911.vercel.app",
+  "id": "1638083893347685967900185660",
+  "path": "vercel.svg",
+  "projectId": "prj_ox429kzWai6z0T0qTAFsNH5Gsz69",
+  "proxy": {
+    "clientIp": "54.83.153.197",
+    "host": "vecel-six.vercel.app",
+    "method": "GET",
+    "path": "/_next/image?url=%2Fvercel.svg&w=96&q=75",
+    "referer": "https://vecel-six.vercel.app/",
+    "region": "iad1",
+    "scheme": "https",
+    "statusCode": 200,
+    "timestamp": 1638083893267,
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/92.0.4512.0 Safari/537.36 (Checkly, https://www.checklyhq.com)"
+  },
+  "requestId": "7x5k5-1638083893267-08123096dc11",
+  "source": "static",
+  "statusCode": 200,
+  "timestamp": 1638083893347
+}
+Sun Nov 28 2021 00:32:38 static | 200 | pharaoh-five.vercel.app | /_next/image?url=%2Fvercel.svg&w=96&q=75 | 162.157.13.38 | Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36 metadata
+{
+  "deploymentId": "dpl_HfG1DtZfD6hRXH9ryUWSEo9rKbWz",
+  "host": "pharaoh-hvzcuhx0o-pharaoh911.vercel.app",
+  "id": "1638084758835809752878344919",
+  "path": "vercel.svg",
+  "projectId": "prj_xtoLzdzuM3WeJDjhbC7Uvwl6oG7d",
+  "proxy": {
+    "clientIp": "162.157.13.38",
+    "host": "pharaoh-five.vercel.app",
+    "method": "GET",
+    "path": "/_next/image?url=%2Fvercel.svg&w=96&q=75",
+    "referer": "https://pharaoh-five.vercel.app/",
+    "region": "pdx1",
+    "scheme": "https",
+    "statusCode": 200,
+    "timestamp": 1638084758804,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36"
+  },
+  "requestId": "n2wkd-1638084758804-4a2b2db06388",
+  "source": "static",
+  "statusCode": 200,
+  "timestamp": 1638084758835
+}
+Sun Nov 28 2021 00:39:25 static | 200 | pharaoh-five.vercel.app | /_next/image?url=%2Fvercel.svg&w=96&q=75 | 54.210.230.234 | Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/92.0.4512.0 Safari/537.36 (Checkly, https://www.checklyhq.com) metadata
+{
+  "deploymentId": "dpl_HfG1DtZfD6hRXH9ryUWSEo9rKbWz",
+  "host": "pharaoh-hvzcuhx0o-pharaoh911.vercel.app",
+  "id": "1638085165180108381352359773",
+  "path": "vercel.svg",
+  "projectId": "prj_xtoLzdzuM3WeJDjhbC7Uvwl6oG7d",
+  "proxy": {
+    "clientIp": "54.210.230.234",
+    "host": "pharaoh-five.vercel.app",
+    "method": "GET",
+    "path": "/_next/image?url=%2Fvercel.svg&w=96&q=75",
+    "referer": "https://pharaoh-five.vercel.app/",
+    "region": "iad1",
+    "scheme": "https",
+    "statusCode": 200,
+    "timestamp": 1638085165176,
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/92.0.4512.0 Safari/537.36 (Checkly, https://www.checklyhq.com)"
+  },
+  "requestId": "cwv4p-1638085165176-973ee8cbf823",
+  "source": "static",
+  "statusCode": 200,
+  "timestamp": 1638085165180
+}
+Sun Nov 28 2021 01:18:12 static | 200 | vecel-six.vercel.app | /_next/image?url=%2Fvercel.svg&w=96&q=75 | 54.246.187.251 | Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/92.0.4512.0 Safari/537.36 (Checkly, https://www.checklyhq.com) metadata
+{
+  "deploymentId": "dpl_6hy9TfnzUrSaHvQP17wLgDAyYBz2",
+  "host": "vecel-kzsc3j3e5-pharaoh911.vercel.app",
+  "id": "1638087492922854637908341371",
+  "path": "vercel.svg",
+  "projectId": "prj_ox429kzWai6z0T0qTAFsNH5Gsz69",
+  "proxy": {
+    "cacheId": "5sj9h-1636597094607-613d5abd19fc",
+    "clientIp": "54.246.187.251",
+    "host": "vecel-six.vercel.app",
+    "method": "GET",
+    "path": "/_next/image?url=%2Fvercel.svg&w=96&q=75",
+    "referer": "https://vecel-six.vercel.app/",
+    "region": "dub1",
+    "scheme": "https",
+    "statusCode": 200,
+    "timestamp": 1638087492919,
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/92.0.4512.0 Safari/537.36 (Checkly, https://www.checklyhq.com)"
+  },
+  "requestId": "5wwtv-1638087492919-46347206f722",
+  "source": "static",
+  "timestamp": 1638087492922
+}
+Sun Nov 28 2021 01:18:13 static | 200 | vecel-six.vercel.app | /_next/image?url=%2Fvercel.svg&w=96&q=75 | 34.254.198.208 | Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/92.0.4512.0 Safari/537.36 (Checkly, https://www.checklyhq.com) metadata
+{
+  "deploymentId": "dpl_6hy9TfnzUrSaHvQP17wLgDAyYBz2",
+  "host": "vecel-kzsc3j3e5-pharaoh911.vercel.app",
+  "id": "1638087493376966814750873593",
+  "path": "vercel.svg",
+  "projectId": "prj_ox429kzWai6z0T0qTAFsNH5Gsz69",
+  "proxy": {
+    "cacheId": "5sj9h-1636597094607-613d5abd19fc",
+    "clientIp": "34.254.198.208",
+    "host": "vecel-six.vercel.app",
+    "method": "GET",
+    "path": "/_next/image?url=%2Fvercel.svg&w=96&q=75",
+    "referer": "https://vecel-six.vercel.app/",
+    "region": "dub1",
+    "scheme": "https",
+    "statusCode": 200,
+    "timestamp": 1638087493233,
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/92.0.4512.0 Safari/537.36 (Checkly, https://www.checklyhq.com)"
+  },
+  "requestId": "7mpms-1638087493233-5e67079a8aef",
+  "source": "static",
+  "timestamp": 1638087493376
+}
+Sun Nov 28 2021 01:39:24 static | 200 | pharaoh-five.vercel.app | /_next/image?url=%2Fvercel.svg&w=96&q=75 | 54.228.2.94 | Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/92.0.4512.0 Safari/537.36 (Checkly, https://www.checklyhq.com) metadata
+{
+  "deploymentId": "dpl_HfG1DtZfD6hRXH9ryUWSEo9rKbWz",
+  "host": "pharaoh-hvzcuhx0o-pharaoh911.vercel.app",
+  "id": "1638088764783966814750813718",
+  "path": "vercel.svg",
+  "projectId": "prj_xtoLzdzuM3WeJDjhbC7Uvwl6oG7d",
+  "proxy": {
+    "cacheId": "vcf99-1636598366432-27fd62554b47",
+    "clientIp": "54.228.2.94",
+    "host": "pharaoh-five.vercel.app",
+    "method": "GET",
+    "path": "/_next/image?url=%2Fvercel.svg&w=96&q=75",
+    "referer": "https://pharaoh-five.vercel.app/",
+    "region": "dub1",
+    "scheme": "https",
+    "statusCode": 200,
+    "timestamp": 1638088764781,
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/92.0.4512.0 Safari/537.36 (Checkly, https://www.checklyhq.com)"
+  },
+  "requestId": "7mpms-1638088764781-4ffbee45ddf7",
+  "source": "static",
+  "timestamp": 1638088764783
+}
+Sun Nov 28 2021 01:39:25 static | 200 | pharaoh-five.vercel.app | /_next/image?url=%2Fvercel.svg&w=96&q=75 | 3.249.83.157 | Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/92.0.4512.0 Safari/537.36 (Checkly, https://www.checklyhq.com) metadata
+{
+  "deploymentId": "dpl_HfG1DtZfD6hRXH9ryUWSEo9rKbWz",
+  "host": "pharaoh-hvzcuhx0o-pharaoh911.vercel.app",
+  "id": "1638088765174026274292229799",
+  "path": "vercel.svg",
+  "projectId": "prj_xtoLzdzuM3WeJDjhbC7Uvwl6oG7d",
+  "proxy": {
+    "cacheId": "vcf99-1636598366432-27fd62554b47",
+    "clientIp": "3.249.83.157",
+    "host": "pharaoh-five.vercel.app",
+    "method": "GET",
+    "path": "/_next/image?url=%2Fvercel.svg&w=96&q=75",
+    "referer": "https://pharaoh-five.vercel.app/",
+    "region": "dub1",
+    "scheme": "https",
+    "statusCode": 200,
+    "timestamp": 1638088765171,
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/92.0.4512.0 Safari/537.36 (Checkly, https://www.checklyhq.com)"
+  },
+  "requestId": "ztvjk-1638088765171-1a56310d03ac",
+  "source": "static",
+  "timestamp": 1638088765174
+}
+Sun Nov 28 2021 02:18:13 static | 200 | vecel-six.vercel.app | /_next/image?url=%2Fvercel.svg&w=96&q=75 | 3.237.23.92 | Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/92.0.4512.0 Safari/537.36 (Checkly, https://www.checklyhq.com) metadata
+{
+  "deploymentId": "dpl_6hy9TfnzUrSaHvQP17wLgDAyYBz2",
+  "host": "vecel-kzsc3j3e5-pharaoh911.vercel.app",
+  "id": "1638091093257420510495124468",
+  "path": "vercel.svg",
+  "projectId": "prj_ox429kzWai6z0T0qTAFsNH5Gsz69",
+  "proxy": {
+    "clientIp": "3.237.23.92",
+    "host": "vecel-six.vercel.app",
+    "method": "GET",
+    "path": "/_next/image?url=%2Fvercel.svg&w=96&q=75",
+    "referer": "https://vecel-six.vercel.app/",
+    "region": "iad1",
+    "scheme": "https",
+    "statusCode": 200,
+    "timestamp": 1638091093181,
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/92.0.4512.0 Safari/537.36 (Checkly, https://www.checklyhq.com)"
+  },
+  "requestId": "mzhjz-1638091093181-e1d6a5c2f5fd",
+  "source": "static",
+  "statusCode": 200,
+  "timestamp": 1638091093257
+}
+
+SELECT
+  t0.timestamp,
+  t0.id,
+  t0.event_message
+FROM
+  `logflare-232118`.12640_prod.2c100df6_458a_47bd_8200_38eb921137f2 AS t0
+WHERE
+  (
+    (
+      EXTRACT(
+        DATE
+        FROM
+          t0.timestamp
+      ) >= '2021-11-21'
+    )
+    AND (
+      EXTRACT(
+        DATE
+        FROM
+          t0.timestamp
+      ) <= '2021-11-28'
+    )
+  )
+  AND (
+    t0.timestamp BETWEEN '2021-11-21 00:00:00Z'
+    AND '2021-11-28 09:34:21Z'
+  )
+ORDER BY
+  t0.timestamp DESC
+LIMIT
+  100
+  SELECT
+  (
+    `12640_prod`.LF_TIMESTAMP_TRUNC_WITH_TIMEZONE(t0.timestamp, 'DAY', 'America/Edmonton')
+  ) as timestamp,
+  COUNTIF(
+    f2.statusCode <= 99
+    OR f2.statusCode >= 601
+    OR f2.statusCode IS NULL
+  ) as other,
+  COUNTIF(
+    f2.statusCode BETWEEN 100
+    AND 199
+  ) as status_1xx,
+  COUNTIF(
+    f2.statusCode BETWEEN 200
+    AND 299
+  ) as status_2xx,
+  COUNTIF(
+    f2.statusCode BETWEEN 300
+    AND 399
+  ) as status_3xx,
+  COUNTIF(
+    f2.statusCode BETWEEN 400
+    AND 499
+  ) as status_4xx,
+  COUNTIF(
+    f2.statusCode BETWEEN 500
+    AND 599
+  ) as status_5xx,
+  COUNT(t0.timestamp) as total
+FROM
+  `logflare-232118`.12640_prod.2c100df6_458a_47bd_8200_38eb921137f2 AS t0
+  INNER JOIN UNNEST(t0.metadata) AS f1 ON TRUE
+  INNER JOIN UNNEST(f1.proxy) AS f2 ON TRUE
+WHERE
+  (
+    t0.timestamp BETWEEN '2021-11-21 00:00:00Z'
+    AND '2021-11-28 09:34:21Z'
+  )
+GROUP BY
+  1
+ORDER BY
+  1 DESC
+  
+  
