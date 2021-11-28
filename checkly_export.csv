@@ -1,0 +1,3 @@
+id,name,activated,group,type,successRatio,avg,p95,p99,tags
+c0cd7ecc-7c87-4f7e-86fc-5a58122fc026,API check sample,true,,API,97.3,163,244,248,""
+164e44b4-b9ee-4dbe-987c-e53c09571faa,Browser check sample,true,,BROWSER,97.3,3668,5131,5162,""
