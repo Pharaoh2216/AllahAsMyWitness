@@ -1,0 +1,1802 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+# A sample workflow which checks out the code, builds a container
+# image using Docker and scans that image for vulnerabilities using
+# Snyk. The results are then uploaded to GitHub Security Code Scanning
+#
+# For more examples, including how to limit scans to only high-severity
+# issues, monitor images for newly disclosed vulnerabilities in Snyk and
+# fail PR checks for new vulnerabilities, see https://github.com/snyk/actions/
+
+name: Snyk Container
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    # The branches below must be a subset of the branches above
+    branches: [ main ]
+  schedule:
+    - cron: '26 9 * * 5'
+
+jobs:
+  snyk:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build a Docker image
+      run: docker build -t your/image-to-test .
+    - name: Run Snyk to check Docker image for vulnerabilities
+      # Snyk can be used to break the build when it detects vulnerabilities.
+      # In this case we want to upload the issues to GitHub Code Scanning
+      continue-on-error: true
+      uses: snyk/actions/docker@14818c4695ecc4045f33c9cee9e795a788711ca4
+      env:
+        # In order to use the Snyk Action you will need to have a Snyk API token.
+        # More details in https://github.com/snyk/actions#getting-your-snyk-token
+        # or you can signup for free at https://snyk.io/login
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      with:
+        image: your/image-to-test
+        args: --file=Dockerfile
+    - name: Upload result to GitHub Code Scanning
+      uses: github/codeql-action/upload-sarif@v1
+      with:
+        sarif_file: snyk.sarif
+- name: Setup Go environment
+  uses: actions/setup-go@v2.1.4
+  with:
+    # The Go version to download (if necessary) and use. Supports semver spec and ranges.
+    go-version: # optional
+    # Whether to download only stable versions
+    stable: # optional, default is true
+    # Used to pull node distributions from go-versions.  Since there's a default, this is typically not supplied by the user.
+    token: # optional, default is ${{ github.token }}
+
+    - name: Setup Java JDK
+  uses: actions/setup-java@v2.3.1
+  with:
+    # The Java version to set up. Takes a whole or semver Java version. See examples of supported syntax in README file
+    java-version: 
+    # Java distribution. See the list of supported distributions in README file
+    distribution: 
+    # The package type (jdk, jre, jdk+fx, jre+fx)
+    java-package: # optional, default is jdk
+    # The architecture of the package
+    architecture: # optional, default is x64
+    # Path to where the compressed JDK is located
+    jdkFile: # optional
+    # Set this option if you want the action to check for the latest available version that satisfies the version spec
+    check-latest: # optional
+    # ID of the distributionManagement repository in the pom.xml file. Default is `github`
+    server-id: # optional, default is github
+    # Environment variable name for the username for authentication to the Apache Maven repository. Default is $GITHUB_ACTOR
+    server-username: # optional, default is GITHUB_ACTOR
+    # Environment variable name for password or token for authentication to the Apache Maven repository. Default is $GITHUB_TOKEN
+    server-password: # optional, default is GITHUB_TOKEN
+    # Path to where the settings.xml file will be written. Default is ~/.m2.
+    settings-path: # optional
+    # Overwrite the settings.xml file if it exists. Default is "true".
+    overwrite-settings: # optional, default is true
+    # GPG private key to import. Default is empty string.
+    gpg-private-key: # optional
+    # Environment variable name for the GPG private key passphrase. Default is $GPG_PASSPHRASE.
+    gpg-passphrase: # optional
+    # Name of the build platform to cache dependencies. It can be "maven" or "gradle".
+    cache: # optional
+    # Workaround to pass job status to post job step. This variable is not intended for manual setting
+    job-status: # optional, default is ${{ job.status }}
+
+
+    - name: Close Stale Issues
+  uses: actions/stale@v4.0.0
+  with:
+    # Token for the repository. Can be passed in using `{{ secrets.GITHUB_TOKEN }}`.
+    repo-token: # optional, default is ${{ github.token }}
+    # The message to post on the issue when tagging it. If none provided, will not mark issues stale.
+    stale-issue-message: # optional
+    # The message to post on the pull request when tagging it. If none provided, will not mark pull requests stale.
+    stale-pr-message: # optional
+    # The message to post on the issue when closing it. If none provided, will not comment when closing an issue.
+    close-issue-message: # optional
+    # The message to post on the pull request when closing it. If none provided, will not comment when closing a pull requests.
+    close-pr-message: # optional
+    # The number of days old an issue or a pull request can be before marking it stale. Set to -1 to never mark issues or pull requests as stale automatically.
+    days-before-stale: # optional, default is 60
+    # The number of days old an issue can be before marking it stale. Set to -1 to never mark issues as stale automatically. Override "days-before-stale" option regarding only the issues.
+    days-before-issue-stale: # optional
+    # The number of days old a pull request can be before marking it stale. Set to -1 to never mark pull requests as stale automatically. Override "days-before-stale" option regarding only the pull requests.
+    days-before-pr-stale: # optional
+    # The number of days to wait to close an issue or a pull request after it being marked stale. Set to -1 to never close stale issues or pull requests.
+    days-before-close: # optional, default is 7
+    # The number of days to wait to close an issue after it being marked stale. Set to -1 to never close stale issues. Override "days-before-close" option regarding only the issues.
+    days-before-issue-close: # optional
+    # The number of days to wait to close a pull request after it being marked stale. Set to -1 to never close stale pull requests. Override "days-before-close" option regarding only the pull requests.
+    days-before-pr-close: # optional
+    # The label to apply when an issue is stale.
+    stale-issue-label: # optional, default is Stale
+    # The label to apply when an issue is closed.
+    close-issue-label: # optional
+    # The labels that mean an issue is exempt from being marked stale. Separate multiple labels with commas (eg. "label1,label2").
+    exempt-issue-labels: # optional, default is 
+    # The label to apply when a pull request is stale.
+    stale-pr-label: # optional, default is Stale
+    # The label to apply when a pull request is closed.
+    close-pr-label: # optional
+    # The labels that mean a pull request is exempt from being marked as stale. Separate multiple labels with commas (eg. "label1,label2").
+    exempt-pr-labels: # optional, default is 
+    # The milestones that mean an issue or a pull request is exempt from being marked as stale. Separate multiple milestones with commas (eg. "milestone1,milestone2").
+    exempt-milestones: # optional, default is 
+    # The milestones that mean an issue is exempt from being marked as stale. Separate multiple milestones with commas (eg. "milestone1,milestone2"). Override "exempt-milestones" option regarding only the issues.
+    exempt-issue-milestones: # optional, default is 
+    # The milestones that mean a pull request is exempt from being marked as stale. Separate multiple milestones with commas (eg. "milestone1,milestone2"). Override "exempt-milestones" option regarding only the pull requests.
+    exempt-pr-milestones: # optional, default is 
+    # Exempt all issues and pull requests with milestones from being marked as stale. Default to false.
+    exempt-all-milestones: # optional, default is false
+    # Exempt all issues with milestones from being marked as stale. Override "exempt-all-milestones" option regarding only the issues.
+    exempt-all-issue-milestones: # optional, default is 
+    # Exempt all pull requests with milestones from being marked as stale. Override "exempt-all-milestones" option regarding only the pull requests.
+    exempt-all-pr-milestones: # optional, default is 
+    # Only issues or pull requests with all of these labels are checked if stale. Defaults to `` (disabled) and can be a comma-separated list of labels.
+    only-labels: # optional, default is 
+    # Only issues or pull requests with at least one of these labels are checked if stale. Defaults to `` (disabled) and can be a comma-separated list of labels.
+    any-of-labels: # optional, default is 
+    # Only issues with at least one of these labels are checked if stale. Defaults to `` (disabled) and can be a comma-separated list of labels. Override "any-of-labels" option regarding only the issues.
+    any-of-issue-labels: # optional, default is 
+    # Only pull requests with at least one of these labels are checked if stale. Defaults to `` (disabled) and can be a comma-separated list of labels. Override "any-of-labels" option regarding only the pull requests.
+    any-of-pr-labels: # optional, default is 
+    # Only issues with all of these labels are checked if stale. Defaults to `[]` (disabled) and can be a comma-separated list of labels. Override "only-labels" option regarding only the issues.
+    only-issue-labels: # optional, default is 
+    # Only pull requests with all of these labels are checked if stale. Defaults to `[]` (disabled) and can be a comma-separated list of labels. Override "only-labels" option regarding only the pull requests.
+    only-pr-labels: # optional, default is 
+    # The maximum number of operations per run, used to control rate limiting (GitHub API CRUD related).
+    operations-per-run: # optional, default is 30
+    # Remove stale labels from issues and pull requests when they are updated or commented on.
+    remove-stale-when-updated: # optional, default is true
+    # Remove stale labels from issues when they are updated or commented on. Override "remove-stale-when-updated" option regarding only the issues.
+    remove-issue-stale-when-updated: # optional, default is 
+    # Remove stale labels from pull requests when they are updated or commented on. Override "remove-stale-when-updated" option regarding only the pull requests.
+    remove-pr-stale-when-updated: # optional, default is 
+    # Run the processor in debug mode without actually performing any operations on live issues.
+    debug-only: # optional, default is false
+    # The order to get issues or pull requests. Defaults to false, which is descending.
+    ascending: # optional, default is false
+    # Delete the git branch after closing a stale pull request.
+    delete-branch: # optional, default is false
+    # The date used to skip the stale action on issue/pull request created before it (ISO 8601 or RFC 2822).
+    start-date: # optional, default is 
+    # The assignees which exempt an issue or a pull request from being marked as stale. Separate multiple assignees with commas (eg. "user1,user2").
+    exempt-assignees: # optional, default is 
+    # The assignees which exempt an issue from being marked as stale. Separate multiple assignees with commas (eg. "user1,user2"). Override "exempt-assignees" option regarding only the issues.
+    exempt-issue-assignees: # optional, default is 
+    # The assignees which exempt a pull request from being marked as stale. Separate multiple assignees with commas (eg. "user1,user2"). Override "exempt-assignees" option regarding only the pull requests.
+    exempt-pr-assignees: # optional, default is 
+    # Exempt all issues and pull requests with assignees from being marked as stale. Default to false.
+    exempt-all-assignees: # optional, default is false
+    # Exempt all issues with assignees from being marked as stale. Override "exempt-all-assignees" option regarding only the issues.
+    exempt-all-issue-assignees: # optional, default is 
+    # Exempt all pull requests with assignees from being marked as stale. Override "exempt-all-assignees" option regarding only the pull requests.
+    exempt-all-pr-assignees: # optional, default is 
+    # Display some statistics at the end regarding the stale workflow (only when the logs are enabled).
+    enable-statistics: # optional, default is true
+
+    - name: Download a Build Artifact
+  uses: actions/download-artifact@v2.0.10
+  with:
+    # Artifact name
+    name: # optional
+    # Destination path
+    path: # optional
+
+    - name: First interaction
+  uses: actions/first-interaction@v1.1.0
+  with:
+    # Token for the repository. Can be passed in using {{ secrets.GITHUB_TOKEN }}
+    repo-token: 
+    # Comment to post on an individual's first issue
+    issue-message: # optional
+    # Comment to post on an individual's first pull request
+    pr-message: # optional
+
+    name: Build
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    types: [opened, synchronize, reopened]
+jobs:
+  sonarcloud:
+    name: SonarCloud
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+          sonar.projectKey=AllahAsMyWitness
+sonar.organization=newtest2216
+
+# This is the name and version displayed in the SonarCloud UI.
+#sonar.projectName=AllahAsMyWitness
+#sonar.projectVersion=1.0
+
+# Path is relative to the sonar-project.properties file. Replace "\" by "/" on Windows.
+#sonar.sources=.
+
+# Encoding of the source code. Default is default system encoding
+#sonar.sourceEncoding=UTF-8
+
+- name: Report-link-action
+  # You may pin to the exact commit or the version.
+  # uses: ad-m/report-link-action@d74dd3c9815fc723e49377ffb63b0ce94f2ad253
+  uses: ad-m/report-link-action@v1.0.0
+  with:
+    # Token for the repo. Can be passed in using $\{{ secrets.GITHUB_TOKEN }}
+    github_token: 
+
+    - name: DataDog Event Trigger
+  # You may pin to the exact commit or the version.
+  # uses: jordan-simonovski/datadog-event-action@caaa7445ac900afaa07e62b47dbe1cf98698019c
+  uses: jordan-simonovski/datadog-event-action@1.0.3
+
+
+    - name: Honeybadger Upload Sourcemap Action
+  # You may pin to the exact commit or the version.
+  # uses: honeybadger-io/github-upload-sourcemap-action@b29c7bd4fd222360a25a1522563ca99cdb7633fc
+  uses: honeybadger-io/github-upload-sourcemap-action@v1
+  with:
+    # The Honeybadger project API key
+    api_key: 
+    # The URL of the minified file on your server.
+    minified_url: 
+    # The local path of the unminified javascript file.
+    minified_file: 
+    # The local path of the source map.
+    source_map: 
+    # One or more additional source files which may be referenced by your
+source map. The name should be the URL that would normally be used
+to access the file, and the value should be the file itself.
+
+    additional_source_files: # optional, default is 
+    # The source map submission endpoint. Only used for testing
+    endpoint: # optional, default is https://api.honeybadger.io/v1/source_maps
+
+    - name: Monitor Document
+  # You may pin to the exact commit or the version.
+  # uses: shinhwagk/monitoring_document@17027b1d7d5c8905ad7839edf4305cadec1317ed
+  uses: shinhwagk/monitoring_document@0.0.3
+
+  - name: Broken-Links-Crawler
+  # You may pin to the exact commit or the version.
+  # uses: ScholliYT/Broken-Links-Crawler-Action@5461bfeb976043d8731e24ddf4e7600f7b5b7627
+  uses: ScholliYT/Broken-Links-Crawler-Action@v3.1.0
+  with:
+    # Which websites to check
+    website_url: 
+    # Comma separated list of URL prefixes to include
+    include_url_prefix: # optional, default is 
+    # Comma separated list of URL prefixes to ignore
+    exclude_url_prefix: # optional, default is mailto:,tel:
+    # Comma separated list of URL suffixes to include
+    include_url_suffix: # optional, default is 
+    # Comma separated list of URL suffixes to ignore
+    exclude_url_suffix: # optional, default is 
+    # Comma separated list of URL substrings to include
+    include_url_contained: # optional, default is 
+    # Comma separated list of URL substrings to ignore
+    exclude_url_contained: # optional, default is 
+    # Set logging verbosity level: true/false/yes/no/on/off/debug/info/warning/error/critical
+    verbose: # optional, default is false
+    # Maximum time for request retries
+    max_retry_time: # optional, default is 30
+    # Maximum request retry count
+    max_retries: # optional, default is 4
+    # Maximum site depth level
+    max_depth: # optional, default is -1
+    # Always use GET requests for onsite urls
+    always_get_onsite: # optional, default is false
+    # Limit number of tcp connections per host
+    connect_limit_per_host: # optional, default is 10
+    # Number of seconds to wait for a request to complete
+    timeout: # optional, default is 60
+    # Names of element attributes to extract links from
+    search_attrs: # optional, default is href,src
+    # Enables absolute link resolution before applying filtering patterns
+    resolve_before_filtering: # optional, default is false
+
+    - name: Broken-Links-Crawler
+  # You may pin to the exact commit or the version.
+  # uses: ScholliYT/Broken-Links-Crawler-Action@5461bfeb976043d8731e24ddf4e7600f7b5b7627
+  uses: ScholliYT/Broken-Links-Crawler-Action@v3.1.0
+  with:
+    # Which websites to check
+    website_url: 
+    # Comma separated list of URL prefixes to include
+    include_url_prefix: # optional, default is 
+    # Comma separated list of URL prefixes to ignore
+    exclude_url_prefix: # optional, default is mailto:,tel:
+    # Comma separated list of URL suffixes to include
+    include_url_suffix: # optional, default is 
+    # Comma separated list of URL suffixes to ignore
+    exclude_url_suffix: # optional, default is 
+    # Comma separated list of URL substrings to include
+    include_url_contained: # optional, default is 
+    # Comma separated list of URL substrings to ignore
+    exclude_url_contained: # optional, default is 
+    # Set logging verbosity level: true/false/yes/no/on/off/debug/info/warning/error/critical
+    verbose: # optional, default is false
+    # Maximum time for request retries
+    max_retry_time: # optional, default is 30
+    # Maximum request retry count
+    max_retries: # optional, default is 4
+    # Maximum site depth level
+    max_depth: # optional, default is -1
+    # Always use GET requests for onsite urls
+    always_get_onsite: # optional, default is false
+    # Limit number of tcp connections per host
+    connect_limit_per_host: # optional, default is 10
+    # Number of seconds to wait for a request to complete
+    timeout: # optional, default is 60
+    # Names of element attributes to extract links from
+    search_attrs: # optional, default is href,src
+    # Enables absolute link resolution before applying filtering patterns
+    resolve_before_filtering: # optional, default is false
+
+    - name: Create an event using Microsoft Graph
+  # You may pin to the exact commit or the version.
+  # uses: anoopt/ms-graph-create-event@5ca4efec86cbc875be01bddc5eebc36d54c74f79
+  uses: anoopt/ms-graph-create-event@v1
+  with:
+    # The subject of the event.
+    subject: 
+    # The body of the event (can be HTML).
+    body: 
+    # The email address of the person for whom the event will be created.
+    emailAddress: 
+    # (Optional) The date and time when the event should start (format - yyyy-MM-ddThh:mm:ss). If not specified start time will be next day 12:00 GMT.
+    start: # optional
+    # (Optional) The date and time when the event should end (format - yyyy-MM-ddThh:mm:ss). If not specified end time will be next day 13:00 GMT.
+    end: # optional
+
+    - name: Bundlewatch Github Action
+  # You may pin to the exact commit or the version.
+  # uses: jackyef/bundlewatch-gh-action@7684ed530b6a4192b21be696fc70ae38447c9ab8
+  uses: jackyef/bundlewatch-gh-action@0.2.0
+  with:
+    # A token to authenticate with the Bundlewatch service. Set this as a secret in your GitHub repository
+    bundlewatch-github-token: 
+    # Optional — The build script for your project. Will be run before running bundlewatch
+    build-script: # optional
+    # Optional — The path to your external bundlewatch.config.js file. If not provided, it will assume the configuration exist in your package.json file
+    bundlewatch-config: # optional
+    # Optional — The name of the branch to compare against. Usually it is your master/main branch. Defaults to GitHub PR target branch
+    branch-base: # optional
+
+    - name: sentry-cli-action
+  # You may pin to the exact commit or the version.
+  # uses: bjacobel/sentry-cli-action@80d3b22e8749a5a7fb3608479499709096f49522
+  uses: bjacobel/sentry-cli-action@1.0
+
+  - name: @ember-performance-monitoring/tracerbench-compare-action
+  # You may pin to the exact commit or the version.
+  # uses: TracerBench/tracerbench-compare-action@651c6829a8912fb46b611482646e73a81278857f
+  uses: TracerBench/tracerbench-compare-action@v0.1.0
+  with:
+    # Whether to install dependencies using yarn
+    use-yarn: # optional, default is true
+    # Github Auth Token with permissions for reading, creating comments on PRs as well as updating comments previously created by the action
+    repo-token: # optional
+    # SHA of the control to use for the comparison. Also used to checkout the correct files before build if build-control is true.
+    control-sha: # optional
+    # SHA of the experiment to use for the comparison. Also used to checkout the correct files before build if build-experiment is true.
+    experiment-sha: # optional
+    # Whether to run control-build-command to produce control-dist
+    build-control: # default is true
+    # Whether to run experiment-build-command to produce experiment-dist
+    build-experiment: # default is true
+    # command to execute to produce control-dist if build-control is true
+    control-build-command: # optional, default is ember build -e production --ouput-path dist-control
+    # 
+    control-serve-command: # optional, default is ember s --path=dist-control
+    # command to execute to produce experiment-dist if build-experiment is true
+    experiment-build-command: # optional, default is ember build -e production --ouput-path dist-experiment
+    # 
+    experiment-serve-command: # optional, default is ember s --path=dist-experiment
+    # the location of the built dist for the control-sha (e.g. the output of ember build)
+    control-dist: # default is dist-control
+    # the location of the built dist for the experiment-sha (e.g. the output of ember build)
+    experiment-dist: # default is dist-experiment
+    # markers, comma separated
+    markers: # optional
+
+    - name: effx sync
+  # You may pin to the exact commit or the version.
+  # uses: effxhq/effx-sync-action@c537c1643e61d2081a84c32983aaf7c3f79fce11
+  uses: effxhq/effx-sync-action@v1.0.1
+  with:
+    # Directory for effx config files.
+    directory: 
+
+    - name: Webpack stats difference
+  # You may pin to the exact commit or the version.
+  # uses: chronotruck/webpack-stats-diff-action@aa607e67682e7d239f73088b9eed9cf77ec1af3d
+  uses: chronotruck/webpack-stats-diff-action@1.3.0
+  with:
+    # Webpack generated "stats.json" file path from the base branch
+    base_stats_path: 
+    # Webpack generated "stats.json" file path from the head branch
+    head_stats_path: 
+    # Github generated token
+    token: 
+    # Customized GitHub comment title.
+    comment_title: # optional
+    # The minimum percentage increase in the diff bundle size for a comment to be added. The percentage should use a positive number (integer or floating point) value or zero.
+    announcement_percentage_threshold_increase: # optional
+    # The minimum percentage decrease in the diff bundle size for a comment to be added. The percentage should use a negative numeric (integer or floating point) value or zero.
+    announcement_percentage_threshold_decrease: # optional
+
+    - name: Flutter Package Updater
+  # You may pin to the exact commit or the version.
+  # uses: tianhaoz95/update-flutter-packages@6446ec6f2888a3007a83f0ba3ab687c4895209d5
+  uses: tianhaoz95/update-flutter-packages@v0.0.5
+  with:
+    # The email pull request should be associated with
+    git-email: # optional, default is example@flutterbot.com
+    # The name pull request should be associated with
+    git-name: # optional, default is flutter bot
+    # The main branch of the repository where pull requests should be sent to.
+    target-branch: # optional, default is master
+    # The branch to get created to update the packages.
+    temp-branch: # optional, default is chore/update-flutter-packages
+    # The title of the pull request
+    title: # optional, default is [flutter package updater] Automated Flutter Packages Update
+    # GitHub token used to open pull requests
+    token: # optional, default is local
+    # The logging level which can be quiet, info, warning or error.
+    log: # optional, default is quiet
+    # The root directory of the Flutter project of interest.
+    flutter-project: # optional, default is ./
+
+    - name: Heads Up – Uptime monitoring & alerting
+  # You may pin to the exact commit or the version.
+  # uses: matchai/heads-up@ca500f8fe2c95cefa83311fb5ff9631ced75e712
+  uses: matchai/heads-up@v0.1.0
+  with:
+    # the url to be tested
+    url: 
+    # a github access token
+    access_token: 
+
+    - name: Dupicate-Line Remover Action
+  # You may pin to the exact commit or the version.
+  # uses: maharishi1/Duplicate-Line-Remover-Action@80becf8c69a28b7bf63266acfdb3d43c6235d5eb
+  uses: maharishi1/Duplicate-Line-Remover-Action@v1
+  with:
+    # Folder in which input text are stored
+    input-folder: # default is itext
+    # Folder in which removed text are stored
+    output-folder: # default is removed_text
+
+    - name: HTTP Status
+  # You may pin to the exact commit or the version.
+  # uses: lakuapik/gh-actions-http-status@705c34b4307b8a0354a431b75bb5910b6562dd20
+  uses: lakuapik/gh-actions-http-status@v1
+  with:
+    # List website urls in JSON (eg: ["http://github.com", "https://education.github.com"])
+    sites: 
+    # List expected HTTP status codes in JSON (eg: [301, 200])
+    expected: 
+
+    - name: Fetch Data to File
+  # You may pin to the exact commit or the version.
+  # uses: gautemo/fetch-api-data-action@ed9ce6fcc970ba9c38bff4ec1332ed3b88a689dd
+  uses: gautemo/fetch-api-data-action@1.1.0
+  with:
+    # url of API to fetch
+    url: 
+    # location and filename
+    file: # optional, default is actions/data.json
+
+    - name: AWS Cloudwatch Canary Monitor
+  # You may pin to the exact commit or the version.
+  # uses: janerikcarlsen/aws-canary-monitoring@156954bbb0865836f872b48178f939a3679f824d
+  uses: janerikcarlsen/aws-canary-monitoring@v1
+  with:
+    # Name or ARN of the Cloudwatch alarm to monitor
+    alarm-name: 
+    # Time in minutes to monitor the Cloudwatch alarm. Defaults to 5 minutes
+    monitoring-time: # optional, default is 5
+    # Time in seconds for polling interval. Defaults to 10 seconds
+    polling-interval: # optional, default is 10
+
+    - name: effx lint
+  # You may pin to the exact commit or the version.
+  # uses: effxhq/effx-lint-action@13f4134c4f866d181ae4e437a394f4c9e4c0f6ad
+  uses: effxhq/effx-lint-action@v1.0.1
+  with:
+    # Directory for effx config files.
+    directory: 
+
+    - name: aggregit
+  # You may pin to the exact commit or the version.
+  # uses: MichaelJolley/aggregit@55b399d89d333873c088aaa8d4eb1cdd2be69a4e
+  uses: MichaelJolley/aggregit@v1
+  with:
+    # GitHub secret token
+    githubToken: 
+    # Firebase project id
+    project_id: 
+    # Firebase private key
+    private_key: 
+    # Firebase client email
+    client_email: 
+    # Firebase database url
+    firebaseDbUrl: 
+
+    - name: VirusTotal GitHub Action
+  # You may pin to the exact commit or the version.
+  # uses: crazy-max/ghaction-virustotal@a3f74cfd584b0658320aec5e94ab6a8d16dca05f
+  uses: crazy-max/ghaction-virustotal@v2.4.1
+  with:
+    # The GitHub token used to create an authenticated client for GitHub API
+    vt_api_key: 
+    # Newline-delimited list of path globs for asset files to upload for analysis
+    files: 
+    # If enabled, files will be uploaded to VirusTotal Monitor endpoint
+    vt_monitor: # optional, default is false
+    # A path relative to current monitor user root folder to upload files
+    monitor_path: # optional, default is /
+    # If enabled, analysis link(s) will be appended to the release body
+    update_release_body: # default is false
+    # The GitHub token used to create an authenticated client for GitHub API
+    github_token: # optional, default is ${{ github.token }}
+
+    - name: Label slow PRs
+  # You may pin to the exact commit or the version.
+  # uses: coblox/label-slow-prs@229ae561115ab22108e3cf3d5d8049884fcfd810
+  uses: coblox/label-slow-prs@v0.1.0
+
+  - name: Fixed Issues Labeler
+  # You may pin to the exact commit or the version.
+  # uses: gh-bot/fix-labeler@82c1402f0c82ebadc301f508ab3f1f69184752d2
+  uses: gh-bot/fix-labeler@v2
+  with:
+    # Personal access token (PAT) used to manipulate the repository.
+    token: # optional, default is ${{ github.token }}
+    # Name of the label to apply to fixed issues. When parameter is not present, issues will be annotated with a label named as current branch, "master" or "develop" for example. If requested label is not found in the repository, nothing is annotated
+    label: # optional
+    # Relative path under $GITHUB_WORKSPACE to the repository
+    path: # optional
+
+    - name: HTTP(s) URL health check and TLS/SSL certification expiry check
+  # You may pin to the exact commit or the version.
+  # uses: padurean/https-certificate-expiry-health-check-action@e3d52fe902a76c7fad2336e8e6e5c3589dfc9bf3
+  uses: padurean/https-certificate-expiry-health-check-action@v1.0.0
+  with:
+    # Target URL(s), split by |
+    url: 
+    # Number of failed requests before giving up
+    max-attempts: # optional, default is 1
+    # Delay duration between retries (e.g. 5s, 1m)
+    retry-delay: # optional, default is 3s
+    # Follow redirect if the response has a 3XX status code
+    follow-redirect: # optional, default is false
+    # 
+    check-cert: # optional, default is false
+    # 
+    max-cert-days-left: # optional, default is 1
+    # 
+    port: # optional, default is 443
+
+
+    - name: GitHubActions.com Result Reporter
+  # You may pin to the exact commit or the version.
+  # uses: dkershner6/githubactions-result-reporter@b5ebc57fa643470025cb51fba34a551e478bac72
+  uses: dkershner6/githubactions-result-reporter@v1
+  with:
+    # The ID for the trigger result being reported. This typically is at github.event.client_payload.triggerResult.triggerResultId
+    trigger_result_id: 
+    # The ID for the individual event being reported. This typically is at github.event.client_payload.triggerResult.eventResultId
+    event_result_id: 
+    # A status to update to. Valid values: success, processing, failure
+    status_code: # optional, default is success
+    # A string to describe the status code. This is optional, but should be short (max 25 chars).
+    status_text: # optional, default is Success!
+
+    - name: WakaTime Coding Statistics
+  # You may pin to the exact commit or the version.
+  # uses: tariksahni/coding-stats-wakatime@71e809c34adb51557dcbbb0f5862da04c18f8e2b
+  uses: tariksahni/coding-stats-wakatime@v1.0.1
+  with:
+    # WakaTime API Key
+    WAKATIME_API_KEY: 
+    # Github token of the repo for the authentication
+    REPO_TOKEN: 
+
+    - name: Link Snitch
+  # You may pin to the exact commit or the version.
+  # uses: victoriadrake/link-snitch@8a12a1ad756d18c868af62fa720f299932514d63
+  uses: victoriadrake/link-snitch@v1.0.0
+
+  - name: Subdomain finding using subfinder
+  # You may pin to the exact commit or the version.
+  # uses: v1dhun/subfinder-action@967b0b41df1ec5b094e5f0ce71bf7111be4a8d08
+  uses: v1dhun/subfinder-action@v.0.4
+  with:
+    # List of domains to run subfinder
+    domains-list: 
+    # Telegram chat id to send notifications
+    telegram-chat-id: # optional
+    # Telegram bot token to send notifications
+    telegram-token: # optional
+    # To check host is alive or not using httpx
+    check-alive: # optional, default is false
+
+    - name: Trains get task stats
+  # You may pin to the exact commit or the version.
+  # uses: allegroai/trains-actions-get-stats@dc60ffaed6cb568583ce29634c4017bd96fad026
+  uses: allegroai/trains-actions-get-stats@v1.0
+  with:
+    # Trains api access key (can be generated in your profile page
+    TRAINS_API_ACCESS_KEY: 
+    # Trains api secret key (can be generated in your profile page
+    TRAINS_API_SECRET_KEY: 
+    # Trains server api host
+    TRAINS_API_HOST: 
+    # The task id you would like to get the stats
+    TASK_ID: 
+
+    - name: Trains train model
+  # You may pin to the exact commit or the version.
+  # uses: allegroai/trains-actions-train-model@4032098a915ae910f9a5176899661f2acb885025
+  uses: allegroai/trains-actions-train-model@v1.0
+  with:
+    # Trains api access key (can be generated in your profile page
+    TRAINS_API_ACCESS_KEY: 
+    # Trains api secret key (can be generated in your profile page
+    TRAINS_API_SECRET_KEY: 
+    # Trains server api host
+    TRAINS_API_HOST: 
+    # The id of the template task
+    TASK_ID: 
+    # The queue name for the cloned task
+    QUEUE_NAME: # optional, default is default
+
+    - name: Instana GitOps: Trigger host agent configuration updates
+  # You may pin to the exact commit or the version.
+  # uses: instana/github-action-update-agent-configurations@60cfe32150d7c733520eae468e6af4385a0203b6
+  uses: instana/github-action-update-agent-configurations@v1.0.0
+  with:
+    # The comma-separated host agent tags to match. Either this input or agent_zone must be set.
+    agent_tags: # optional
+    # The host agent zone to match. Either this input or agent_tags must be set.
+    agent_zone: # optional
+
+    - name: Traffic to Badge
+  # You may pin to the exact commit or the version.
+  # uses: yi-Xu-0100/traffic-to-badge@6e7656202ad370afe7e80465c32ee367324ab4fc
+  uses: yi-Xu-0100/traffic-to-badge@v1.4.0
+  with:
+    # Set up a personal access token to obtain the secret repository traffic data.
+
+    my_token: 
+    # Set up a list of repositories to get. Only when github.repository with setting into first item, it can be correct to be current repository name.
+
+    static_list: # optional, default is ${{ github.repository }}
+    # If empty traffic data will be backed up to the branch named traffic.
+
+    traffic_branch: # optional, default is traffic
+    # Set a hex or named color value for the views badge background.
+
+    views_color: # optional, default is brightgreen
+    # Set a hex or named color value for the clones badge background.
+
+    clones_color: # optional, default is brightgreen
+    # Set a hex or named color value for the views per week badge background.
+
+    views_week_color: # optional, default is brightgreen
+    # Set a hex or named color value for the clones per week badge background.
+
+    clones_week_color: # optional, default is brightgreen
+    # Set a hex or named color value for the total views badge background.
+
+    total_views_color: # optional, default is brightgreen
+    # Set a hex or named color value for the total clones badge background.
+
+    total_clones_color: # optional, default is brightgreen
+    # Set a hex or named color value for the total views per week badge background.
+
+    total_views_week_color: # optional, default is brightgreen
+    # Set a hex or named color value for the total clones per week badge background.
+
+    total_clones_week_color: # optional, default is brightgreen
+    # Insert a named logo or simple-icon to the left of the label.
+
+    logo: # optional, default is github
+    # Set a year number for license year beginning. If empty, it will no beginning year.
+
+    year: # optional
+
+    - name: Debugging with ssh
+  # You may pin to the exact commit or the version.
+  # uses: lhotari/action-upterm@20dff461519063b91a41ec04cb5bc70f169110d7
+  uses: lhotari/action-upterm@v1
+
+  - name: Transfer GitHub Project Issues into Google Sheets
+  # You may pin to the exact commit or the version.
+  # uses: ViRGiL175/github-project-issue-to-sheets@bf0de2ec011fcf65a2c10aad32462675e740ad32
+  uses: ViRGiL175/github-project-issue-to-sheets@v2.0.0
+  with:
+    # Google API Service Account credentials JSON
+    google-api-service-account-credentials: 
+    # Google Sheets document ID
+    document-id: 
+    # Google Sheets list name to insert Issues data
+    sheet-name: 
+
+    - name: notfoundbot
+  # You may pin to the exact commit or the version.
+  # uses: tmcw/notfoundbot@9a0c796b535b377ed9da2e74f5103fcb15ad7603
+  uses: tmcw/notfoundbot@v2.2.0
+  with:
+    # Directory with markdown files to fix
+    content-folder: # optional, default is _posts
+
+    - name: Domain and SSL cert watcher
+  # You may pin to the exact commit or the version.
+  # uses: codex-team/action-check-domain@f01efda3949e9dc02364635ce0798c469aa99be7
+  uses: codex-team/action-check-domain@v1.2
+  with:
+    # Site domain to be checked (with protocol)
+    url: 
+
+    - name: Logflare Log
+  # You may pin to the exact commit or the version.
+  # uses: Logflare/action@bf0ca45b9d27358c2fbdb763d35173d6a4044994
+  uses: Logflare/action@v1.1.2
+  with:
+    # Find your API KEY at https://logflare.app/dashboard
+    api_key: 
+    # Provide the id of one of your sources listed on https://logflare.app/dashboard
+    source_id: 
+    # The message you want to appear on logflare.app
+    message: 
+    # The meta data object to attach to your message
+    metadata: 
+
+    - name: ElasticAPM Sourcemap Action
+  # You may pin to the exact commit or the version.
+  # uses: strikelabs/elastic-apm-sourcemap-action@9a49d6c107337bee7305849c3a3bba888b415fa9
+  uses: strikelabs/elastic-apm-sourcemap-action@v1.0
+  with:
+    # Elastic APM endpoint
+    apm_node: 
+    # The service version used in the RUM Agent
+    service_version: 
+    # The service name used in the RUM Agent
+    service_name: 
+    # Where sourcemaps are bundled to (not included in bundle_url path)
+    sourcemap_build_directory: 
+    # Sourcemap pattern match
+    sourcemap_pattern: # default is **/*.map
+    # Where sourcemaps are deployed to
+    bundle_url: 
+    # Your elastic token
+    token: 
+
+
+    - name: SonarCloud Scan
+  # You may pin to the exact commit or the version.
+  # uses: SonarSource/sonarcloud-github-action@de2e56b42aa84d0b1c5b622644ac17e505c9a049
+  uses: SonarSource/sonarcloud-github-action@v1.6
+  with:
+    # Additional arguments to the sonarcloud scanner
+    args: # optional
+    # Set the sonar.projectBaseDir analysis property
+    projectBaseDir: # optional, default is .
+
+    - name: ansible-lint
+  # You may pin to the exact commit or the version.
+  # uses: ansible/ansible-lint-action@38e9ebdc9c3c71e66e2a3e0a09f0b6c8bc005e46
+  uses: ansible/ansible-lint-action@v4.1.0.post0
+
+  - name: Velocity deploy action
+  # You may pin to the exact commit or the version.
+  # uses: codeclimate/velocity-deploy-action@1b4a22f0db113bf8d85c14fd726cf0ec6d17cd13
+  uses: codeclimate/velocity-deploy-action@v1.0.0
+  with:
+    # Your Velocity deployment token
+    token: 
+    # The version tag for the deploy (i.e. `b123`)
+    version: # optional
+    # The environment of the deploy (i.e. `production`)
+    environment: # optional
+
+
+    - name: Coveralls GitHub Action
+  # You may pin to the exact commit or the version.
+  # uses: coverallsapp/github-action@9ba913c152ae4be1327bfb9085dc806cedb44057
+  uses: coverallsapp/github-action@1.1.3
+  with:
+    # 
+    github-token: 
+    # Path to lcov file
+    path-to-lcov: # default is ./coverage/lcov.info
+    # Job flag name, e.g. "Unit", "Functional", or "Integration". Will be shown in the Coveralls UI.
+    flag-name: # optional
+    # Set to true if you are running parallel jobs, then use "parallel_finished: true" for the last action.
+    parallel: # optional
+    # Set to true for the last action when using "parallel: true".
+    parallel-finished: # optional
+    # Coveralls Enterprise server (more info: https://enterprise.coveralls.io)
+    coveralls-endpoint: # optional, default is https://coveralls.io
+    # The root folder of the project that originally ran the tests
+    base-path: # optional
+    # Override the branch name
+    git-branch: # optional
+    # Override the commit sha
+    git-commit: # optional
+
+    - name: Codacy Analysis CLI
+  # You may pin to the exact commit or the version.
+  # uses: codacy/codacy-analysis-cli-action@0de770495bd94bdac1ba7d5043a72b252ddbeec3
+  uses: codacy/codacy-analysis-cli-action@4.0.0
+  with:
+    # Run with verbose output
+    verbose: # optional
+    # API project token to retrieve your remote Codacy configuration for the project being analyzed
+    project-token: # optional
+    # API account token to retrieve your remote Codacy configuration for the project being analyzed
+    api-token: # optional
+    # Codacy's API URL, to retrieve your remote Codacy configuration
+    codacy-api-base-url: # optional
+    # Format of the output file
+    format: # optional
+    # Send analysis results to an output file
+    output: # optional
+    # The directory to be analyzed
+    directory: # optional
+    # Number of tools to run in parallel
+    parallel: # optional
+    # Maximum number of issues allowed for the analysis to succeed
+    max-allowed-issues: # optional, default is 2147483647
+    # The name of the tool to analyze the code
+    tool: # optional
+    # Maximum time each tool has to execute
+    tool-timeout: # optional
+    # Upload analysis results to Codacy
+    upload: # optional
+    # Fail the analysis if any tool fails to run
+    fail-if-incomplete: # optional
+    # Allow network access for tools
+    allow-network: # optional
+    # Force files to be readable by changing the permissions before running the analysis
+    force-file-permissions: # optional
+    # Reduce issue severity by one level, for non-security issues, for compatibility with GitHub's code scanning feature. This option will only have an effect when used in conjunction with '--format sarif'.
+    gh-code-scanning-compat: # optional
+    # Run dockerized tools. Possible values (true|false) Check the full list in https://docs.codacy.com/repositories-configure/codacy-configuration-file/#which-tools-can-be-configured-and-which-name-should-i-use
+    run-docker-tools: # optional, default is true
+    # Run GoSec. Possible values (true|false)
+    run-gosec: # optional
+    # Run StaticCheck. Possible values (true|false)
+    run-staticcheck: # optional
+    # Path to a file containing the output of Clang Tidy.
+    clang-tidy-output: # optional
+    # Path to a file containing the output of Faux Pas.
+    faux-pas-output: # optional
+
+
+    - name: Codacy Coverage Reporter
+  # You may pin to the exact commit or the version.
+  # uses: codacy/codacy-coverage-reporter-action@31721d7c5d2357955879f3ecbae83bf199c16000
+  uses: codacy/codacy-coverage-reporter-action@v1.1.0
+  with:
+    # API project token to retrieve your remote Codacy configuration for the project being analyzed
+    project-token: # optional
+    # API account token to retrieve your remote Codacy configuration for the project being analyzed
+    api-token: # optional
+    # Optional comma separated list of coverage reports to send to Codacy
+    coverage-reports: # optional, default is 
+
+    - name: Psalm – Static Analysis for PHP
+  # You may pin to the exact commit or the version.
+  # uses: psalm/psalm-github-actions@2e545d38ff4387b370449e2673088cc8dc40cf1d
+  uses: psalm/psalm-github-actions@1.1.2
+  with:
+    # Whether or not to use Psalm’s security analysis
+    security_analysis: # optional
+    # File for Psalm’s output
+    report_file: # optional, default is 
+    # Whether or not Composer installs dev packages
+    composer_require_dev: # optional
+    # Whether or not the --ignore-platform-reqs flag is passed to Composer
+    composer_ignore_platform_reqs: # optional
+
+
+
+    - name: Checkov GitHub Action
+  # You may pin to the exact commit or the version.
+  # uses: bridgecrewio/checkov-action@00cc657f4d415593e5c8897bc87f490497ccb5f9
+  uses: bridgecrewio/checkov-action@v12.641.0
+  with:
+    # directory with infrastructure code to scan
+    directory: # optional, default is .
+    # Run scan only on a specific check identifier (comma separated)
+    check: # optional
+    # Run scan on all checks but a specific check identifier (comma separated)
+    skip_check: # optional
+    # display only failed checks
+    quiet: # optional
+    # do not return an error code if there are failed checks
+    soft_fail: # optional
+    # run only on a specific infrastructure
+    framework: # optional
+    # comma separated list of external (custom) checks directories
+    external_checks_dirs: # optional
+    # comma separated list of external (custom) checks repositories
+    external_checks_repos: # optional
+    # The format of the output. cli, json, junitxml, github_failed_only
+    output_format: # optional
+    # download external terraform modules from public git repositories and terraform registry:true, false
+    download_external_modules: # optional
+    # log level
+    log_level: # optional, default is WARNING
+
+
+    - name: Alibaba Cloud Container Registry (ACR) Image Scan
+  # You may pin to the exact commit or the version.
+  # uses: aliyun/acr-scan@7b90a2ec1efddfce667c0a978de0e5ead596fda8
+  uses: aliyun/acr-scan@v1
+  with:
+    # Access key id
+    access-key-id: # optional, default is 
+    # Access key secret
+    access-key-secret: # optional, default is 
+    # Region id
+    region-id: # optional, default is cn-hangzhou
+    # Registry instance id
+    instance-id: # optional, default is 
+    # Image repository name including namespace/name
+    repository: # default is 
+    # Image tag
+    tag: # default is latest
+
+    - name: Code Inspector GitHub action
+  # You may pin to the exact commit or the version.
+  # uses: codeinspectorio/github-action@01c818be303e2c4bcec991ca1c51feab753a1e2a
+  uses: codeinspectorio/github-action@v1
+  with:
+    # Token to checkout the repository.
+    repo_token: 
+    # Access key on Code Inspector
+    code_inspector_access_key: 
+    # Secret key on Code Inspector
+    code_inspector_secret_key: 
+    # Minimum grade. Valid options are EXCELLENT, GOOD, NEUTRAL, WARNING, CRITICAL. Leave blank to ignore.
+    min_quality_grade: # default is 
+    # Minimum quality score from 0 (worst) to 100 (best)
+    min_quality_score: # default is 0
+    # Maximum defect rate per line of code (e.g. 0.01 for 1 defect per 100 lines of code). Leave 0 to ignore.
+    max_defects_rate: # default is 0
+    # Maximum number of complex functions rate (e.g. number of complex functions / number of functions). Leave 0 to ignore.
+    max_complex_functions_rate: # default is 0
+    # Maximum number of long functions rate (e.g. number of long functions / number of functions). Leave 0 to ignore.
+    max_long_functions_rate: # default is 0
+    # Project on code inspector. Will use the preferences of this analysis. Leave blank and no preferences are used
+    project_name: # default is 
+    # Timeout before giving up (in case analysis takes too long). Default is 10 minutes
+    max_timeout_sec: # default is 600
+
+
+    - name: HashiCorp's Link Checker
+  # You may pin to the exact commit or the version.
+  # uses: hashicorp/gh-action-check-broken-links@9da9ec2d83f88fe981a856c3f03aca64e68af90c
+  uses: hashicorp/gh-action-check-broken-links@v1
+  with:
+    # The base URL that links will be resolved against
+    baseUrl: 
+    # A list of files that will be scanned for the presence of links
+    files: # optional
+    # A newline delmited list of URLs that will be ignored
+    whitelist: # optional
+
+    - name: Fortify ScanCentral Scan
+  # You may pin to the exact commit or the version.
+  # uses: fortify/gha-setup-scancentral-client@906d5cb5d8765c2e86e1ae7d32cd7b4bf45103f2
+  uses: fortify/gha-setup-scancentral-client@v1.2.0
+  with:
+    # Fortify ScanCentral Client version to use
+    version: # default is 20.2.0
+    # ScanCentral client authentication token
+    client-auth-token: # optional
+
+
+    - name: Fortify on Demand Scan
+  # You may pin to the exact commit or the version.
+  # uses: fortify/gha-setup-fod-uploader@636f3c3a14aec1747eec5242a02c6349e4f3cce6
+  uses: fortify/gha-setup-fod-uploader@v1.0.1
+  with:
+    # FoDUploader version to use
+    version: # default is latest
+
+
+    - name: Xanitizer Security Analysis
+  # You may pin to the exact commit or the version.
+  # uses: RIGS-IT/xanitizer-action@87d13138fb113b727cbe040c744a15a2b4fe5316
+  uses: RIGS-IT/xanitizer-action@v1.0.1
+  with:
+    # String which is used as input for a Xanitizer license file. Note: It is recommended to use a GitHub secret to store the license file content like XANITIZER_LICENSE and access the content in the configuration via the GitHub secret parameter. Please see https://docs.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets for details. Note: If the license is a floating license and a proxy server is used to access the license server, please specify the proxy server settings. If no settings are specified, the settings from the Xanitizer properties file will be used.
+    license: # optional
+    # Number of attempts to get a license token from the license server. Note: If the used Xanitizer license is a machine bound license, this parameter will be ignored. If the used Xanitizer license is a floating license it may happen that all tokens are in use or the connection to the license server is not available at startup. In such cases, no license token can be requested successfully from the license server to start Xanitizer and the headless process would terminate with a license error. When this parameter is set to a value greater than zero, Xanitizer attempts every minute to request a license token until the specified count has been reached. Setting this parameter to zero disables the repetition.
+    licenseServerRetryCount: # optional
+    # Relative path under $GITHUB_WORKSPACE where the project was checked out. Note: Please use the same value as for parameter `path` of the configured actions/checkout action (see https://github.com/actions/checkout#usage parameter `path`).
+    checkoutPath: # optional
+    # The output location of the overview report. This has to be either a list of files or the parameter has to be undefined or empty if no overview reports should be written. Allowed file extensions are: pdf, html, docx.
+    overviewReportOutputFile: # optional
+    # Comma separated list of output locations of the overview reports. This has to be either a list of files or the parameter has to be undefined or empty if no overview reports should be written. Allowed file extensions are: pdf, html, docx.
+    overviewReportOutputFiles: # optional
+    # The output location of the findings list report. This has to be either a list of files or the parameter has to be undefined or empty if no findings list reports should be written. Allowed file extensions are: pdf, html, docx, xml, csv, sarif.
+    findingsListReportOutputFile: # optional
+    # Comma separated list of output locations of the findings list reports. This has to be either a list of files or the parameter has to be undefined or empty if no findings list reports should be written. Allowed file extensions are: pdf, html, docx, xml, csv, sarif. Note: If no report file has been secified, i.e., neither an overview report nor a findings list report, both a Xanitizer-Findings-List.pdf and a Xanitizer-Findings-List.sarif report will be generated in the checkout directory specified by $GITHUB_WORKSPACE with the optional relative parameter `checkoutPath` as default.
+    findingsListReportOutputFiles: # optional
+    # Boolean flag specifying if only findings with problem classifications are written to the findings list report.
+    onlyProblemsInFindingsListReport: # optional, default is true
+    # Boolean flag specifying if all the details of a finding are written to the findings list report, e.g. if the output contains all steps of a path. Note: Only relevant if the file extension of the parameter `findingsListReportOutputFile` is xml, html, or sarif.
+    generateDetailsInFindingsListReport: # optional, default is true
+    # The path to the Xanitizer configuration file of the project that should be analyzed. Either this parameter or the parameter `rootDirectory` may be specified, but not both. Note: If neither the parameter `configFile` nor the parameter `rootDirectory` has been specified, the parameter `rootDirectory` is set to the checkout directory specified by $GITHUB_WORKSPACE with the optional relative parameter `checkoutPath`.
+    configFile: # optional
+    # The root directory, to be used for default set-ups. Either this parameter or the parameter `configFile` may be specified, but not both. Note: If neither the parameter `configFile` nor the parameter `rootDirectory` has been specified, the parameter `rootDirectory` is set to the checkout directory specified by $GITHUB_WORKSPACE with the optional relative parameter `checkoutPath`.
+    rootDirectory: # optional
+    # The project name that should be used. Only relevant if the parameter `rootDirectory` is specified. If not given, the simple name of the root directory is used.
+    projectName: # optional
+    # The directory where to put the generated configuration file. Only relevant if the parameter `rootDirectory` is specified. If not given, the configuration file is generated in the `rootDirectory`.
+    configFileDirectory: # optional
+    # Boolean flag specifying if an existing config file is to be overwritten. Only relevant if the parameter `rootDirectory` is specified.
+    overwriteConfigFile: # optional
+    # Boolean flag specifying whether Xanitizer uses NodeJS to compile Angular and TypeScript projects to JavaScript code itself or not. This could be a potential risk if someone has manipulated the external ng or the tsc script. If the code is already compiled to JavaScript, best with a source map, this option can be set to `false` true - enables the compilation of Angular and TypeScript code to JavaScript by Xanitizer itself false - disables the compilation of Angular and TypeScript code to JavaScript by Xanitizer itself and some Xanitizer workspace information will be generated if Angular or Typescript files are found in the project not set - if this option is not set and Angular or Typescript files are found in the project, a Xanitizer workspace error will be generated 
+    compileToJavaScript: # optional, default is true
+    # Boolean flag specifying if npm audit should be executed. The npm audit APIs can be used to report on known vulnerable node.js libraries. This requires an Internet connection and so has to be allowed explicitly. This is only relevant for NodeJS projects.
+    performNodeAudit: # optional, default is true
+    # Boolean flag specifying whether the task should fail if there are search paths configured that do not exist.
+    haltOnMissingSearchPaths: # optional
+    # A comma - separated list of issue groups that will let the task fail if for any of them, a Xanitizer error issue occurs. Possible values are ALL_ERRORS, WORKSPACE_ERRORS, CALL_GRAPH_ERRORS, ANALYSIS_ERRORS, MIGRATION_ERRORS. If the value is not set, this means that issues are not relevant for the success of the task.
+    haltOnIssues: # optional
+    # Boolean flag specifying whether the task should fail if there are findings with a rating equal or higher than the value defined for `findingsRatingThreshold`.
+    haltOnFindings: # optional
+    # A rating value. Only used if the parameter `haltOnFindings` is set.
+    findingsRatingThreshold: # optional
+    # Boolean flag specifying whether the OWASP Dependency Check repository should be updated or not. Note: The OWASP Dependency Check is based on vulnerability data stored in a local repository. It is recommended to update the local OWASP Dependency Check repository on a regular basis via remote access to the National Vulnerability Database (NIST). If a proxy server is used to access the internet, please specify the proxy server settings otherwise the settings from the Xanitizer properties file will be used.
+    updateOwaspDependencyCheckRepository: # optional
+    # The logging level to be used when running Xanitizer. Values: OFF, SEVERE, WARNING, INFO, CONFIG, FINE, FINER, FINEST, ALL.
+    logLevel: # optional
+    # Xanitizer`s project data directory, if it is not the default one in <HOME>/.Xanitizer.
+    projectDataDirectory: # optional
+    # Boolean flag specifying whether the task should fail if there are * NEW * findings with a rating equal or higher than the value defined for `newFindingsRating`.
+    haltOnNewFindings: # optional
+    # A rating value. Only used if the parameter `haltOnNewFindings` is set.
+    newFindingsRatingThreshold: # optional
+    # Optional path to the local Maven repository. Note: If no settings are specified, the settings from the Xanitizer properties file will be used.
+    mavenRepository: # optional
+    # Boolean flag specifying whether a snapshot should be created after parsing and analyzing the current version or not.
+    createSnapshot: # optional
+    # Optional comment added to the newly created snapshot. Only relevant if the parameter `createSnapshot` is true.
+    snapshotComment: # optional
+    # The output directory of the project export. Note: If the parameter is undefined or an empty string, the project is not exported.
+    exportDirectory: # optional
+    # Boolean flag specifying if snapshots should be exported or not. The parameter is only used if an export directory is set. If the parameter is not set or empty, no snapshots are exported.
+    exportSnapshots: # optional
+    # The passphrase for the project export. The parameter is only used if an export directory is set. If the parameter is not set or empty, the exported project is not encrypted. Note: It is recommended to use a GitHub secret to store the export like XANITIZER_EXPORT_PASSPHRASE and access the content in the configuration via the GitHub secret parameter. Please see https://docs.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets for details.
+    exportPassphrase: # optional
+    # The path to an exported Xanitizer project archive file. If specified, this project is merged into the current project. This means that all more recent user adaptations, findings and issues are migrated into the current project.
+    mergedProject: # optional
+    # The passphrase for the merged project. The parameter is only necessary if the parameter `mergedProject` is set and the merged project is encrypted. Note: It is recommended to use a GitHub secret to store the export passphrase like XANITIZER_EXPORT_PASSPHRASE. and access the content in the configuration via the GitHub secret parameter. Please see https://docs.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets for details.
+    importPassphrase: # optional
+    # Optional proxy server to access the internet to update the OWASP Dependency Check repository or to request a license token from the public license server in case of a floating license via a proxy. Note: If no settings are specified, the settings from the Xanitizer properties file will be used.
+    proxyServer: # optional
+    # Optional proxy server port.
+    proxyPort: # optional
+    # Optional proxy server user name.
+    proxyUser: # optional
+    # Optional proxy server user password.
+    proxyPassword: # optional
+
+
+    - name: Run Parasoft C/C++test
+  # You may pin to the exact commit or the version.
+  # uses: parasoft/run-cpptest-action@aeb0150eeb0f96098ad3bac53609fd462f88c4f6
+  uses: parasoft/run-cpptest-action@1.0.1
+  with:
+    # Installation folder of Parasoft C/C++test. If not specified, the cpptestcli executable must be added to $PATH.
+    installDir: # optional
+    # Working directory for running C/C++test.
+    workingDir: # optional, default is ${{ github.workspace }}
+    # Identifier of a compiler configuration. Ensure you specify the configuration that matches your compiler.
+    compilerConfig: # optional, default is gcc_9-64
+    # Test configuration to be used for code analysis.
+    testConfig: # optional, default is builtin://Recommended Rules
+    # Output folder for reports from code analysis.
+    reportDir: # optional, default is reports
+    # Format of reports from code analysis.
+    reportFormat: # optional, default is xml,html,sarif
+    # Input scope for analysis (typically, cpptestscan.bdf or compile_commands.json, depending on the project type and the build system).
+    input: # optional, default is cpptestscan.bdf
+    # Additional parameters for the cpptestcli executable.
+    additionalParams: # optional, default is 
+    # Command line pattern for running C/C++test.
+    commandLinePattern: # optional, default is ${cpptestcli} -compiler "${compilerConfig}" -config "${testConfig}" -property report.format=${reportFormat} -report "${reportDir}" -module . -input "${input}" ${additionalParams}
+
+
+    - name: Run Parasoft Jtest
+  # You may pin to the exact commit or the version.
+  # uses: parasoft/run-jtest-action@8883f9f725f0b161ceb49364714a3f8d15502587
+  uses: parasoft/run-jtest-action@0.0.2
+  with:
+    # Installation folder of Parasoft Jtest. If not specified, the cpptestcli executable must be added to PATH.
+    installDir: # optional
+    # Working directory for running Jtest.
+    workingDir: # optional, default is ${{ github.workspace }}
+    # Test configuration to be used for code analysis.
+    testConfig: # optional, default is builtin://Recommended Rules
+    # Output folder for reports from code analysis.
+    reportDir: # optional, default is reports
+    # Format of reports from code analysis.
+    reportFormat: # optional, default is xml,html,sarif
+    # Input scope for analysis.
+    input: # optional, default is jtest.data.json
+    # Additional parameters for the jtestcli executable.
+    additionalParams: # optional, default is 
+
+
+    - name: SonarQube Quality Gate Check
+  # You may pin to the exact commit or the version.
+  # uses: SonarSource/sonarqube-quality-gate-action@15767f0e4eb489cfdd989dc717fa78c038d0de8a
+  uses: SonarSource/sonarqube-quality-gate-action@v1.0.0
+  with:
+    # Location of the scanner metadata report file
+    scanMetadataReportFile: # optional, default is .scannerwork/report-task.txt
+
+
+
+    - name: Official SonarQube Scan
+  # You may pin to the exact commit or the version.
+  # uses: SonarSource/sonarqube-scan-action@069e3332cbefb8659c02d77b21a04719d3ef7c9b
+  uses: SonarSource/sonarqube-scan-action@v1.0.0
+  with:
+    # Additional arguments to the sonar-scanner
+    args: # optional
+    # Set the sonar.projectBaseDir analysis property
+    projectBaseDir: # optional, default is .
+
+
+
+    - name: Codecov
+  # You may pin to the exact commit or the version.
+  # uses: codecov/codecov-action@f32b3a3741e1053eb607407145bc9619351dc93b
+  uses: codecov/codecov-action@v2.1.0
+  with:
+    # Repository upload token - get it from codecov.io. Required only for private repositories
+    token: # optional
+    # Comma-separated list of files to upload
+    files: # optional
+    # Directory to search for coverage reports.
+    directory: # optional
+    # Flag upload to group coverage metrics (e.g. unittests | integration | ui,chrome)
+    flags: # optional
+    # The commit SHA of the parent for which you are uploading coverage. If not present, the parent will be determined using the API of your repository provider.  When using the repository providers API, the parent is determined via finding the closest ancestor to the commit.
+    commit_parent: # optional
+    # Don't upload files to Codecov
+    dry_run: # optional
+    # Environment variables to tag the upload with (e.g. PYTHON | OS,PYTHON)
+    env_vars: # optional
+    # Specify whether or not CI build should fail if Codecov runs into an error during upload
+    fail_ci_if_error: # optional
+    # Path to coverage file to upload
+    file: # optional
+    # Comma-separated list, see the README for options and their usage
+    functionalities: # optional
+    # Move discovered coverage reports to the trash
+    move_coverage_to_trash: # optional
+    # User defined upload name. Visible in Codecov UI
+    name: # optional
+    # Specify the branch name
+    override_branch: # optional
+    # Specify the build number
+    override_build: # optional
+    # Specify the commit SHA
+    override_commit: # optional
+    # Specify the pull request number
+    override_pr: # optional
+    # Specify the git tag
+    override_tag: # optional
+    # Override the assumed OS. Options are alpine | linux | macos | windows.
+    os: # optional
+    # Used when not in git/hg project to identify project root directory
+    root_dir: # optional
+    # Specify the slug manually (Enterprise use)
+    slug: # optional
+    # Change the upload host (Enterprise use)
+    url: # optional
+    # Specify whether the Codecov output should be verbose
+    verbose: # optional
+    # Specify which version of the Codecov Uploader should be used. Defaults to `latest`
+    version: # optional
+    # Directory in which to execute codecov.sh
+    working-directory: # optional
+
+
+    - name: NowSecure
+  # You may pin to the exact commit or the version.
+  # uses: nowsecure/nowsecure-action@3b439db31b6dce857b09f5222fd13ffc3159ad26
+  uses: nowsecure/nowsecure-action@v1
+  with:
+    # NowSecure Platform token.
+    token: 
+    # NowSecure GraphQL API endpoint.
+    api_url: # optional, default is https://api.nowsecure.com
+    # NowSecure Lab API endpoint.
+    lab_api_url: # optional, default is https://lab-api.nowsecure.com
+    # Application binary to scan on NowSecure. Must be an Android or iOS application.
+    app_file: 
+    # Group ID for the application in Platform.
+    group_id: 
+    # Head start in milliseconds to give Platform before an application is polled for details. Default is 5 minutes.
+    headstart_ms: # optional, default is 300000
+    # Interval to poll Platform for application details. Default is once a minute.
+    poll_interval_ms: # optional, default is 60000
+
+
+    - name: Container image scan
+  uses: Azure/container-scan@v0.1
+  with:
+    # Docker image to scan
+    image-name: 
+    # Minimum severities of vulnerabilities to be displayed (UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL)
+    severity-threshold: # optional, default is HIGH
+    # Username to authenticate to the Docker registry
+    username: # optional
+    # Password to authenticate to the Docker registry
+    password: # optional
+    # Github token
+    token: # default is ${{ github.token }}
+    # Add additional checks to ensure the image is secure and follows best practices and CIS standards
+    run-quality-checks: # optional, default is true
+
+
+    - name: Ponicode Unit Test
+  # You may pin to the exact commit or the version.
+  # uses: ponicode/unit-testing-action@68b0270e86c55eb4ad6738e3ea36e1560fcdcdf5
+  uses: ponicode/unit-testing-action@0.2.0
+  with:
+    # String: URL of the repo to be processed
+    repoUrl: 
+    # String: Ponicode UT user token from Github Secrets
+    ponicodeUtToken: 
+    # GitHub token to generate some comments into the PR
+    githubToken: 
+    # String[]: List of the files updated in the PR
+    impactedFiles: 
+    # String: branch on which the PR applies
+    branch: # default is master
+    # Comment the generated UT
+    commentUTs: 
+
+    - name: REST API Fuzz Testing (RAFT) Action
+  uses: microsoft/raft-action@v4.2
+  with:
+    # Setting the mode to azure will deploy against your azure RAFT deployment
+    mode: # optional, default is local
+    # RAFT CLI arguments
+    arguments: 
+    # Copy logs to this directory
+    logDirectory: # optional, default is .raft
+    # RAFT defaults.json contents
+    raftDefaults: # optional
+    # Service Principal secret for RAFT deployment
+    secret: # optional
+    # Set to disable to not log anonymized telemetry
+    telemetry: # optional, default is enabled
+
+    - name: IntelliCode Team Completions
+  uses: microsoft/vs-intellicode@v1.0
+  with:
+    # Only for C++ extractions. Sets the platform for the C++ build (ARM, Any CPU, etc).
+    platform: # optional
+    # Only for C++ extractions. Sets the configuration for the C++ build (Debug, Release).
+    config: # optional
+    # Use if you wish to override the directory where the repo to be trained is located at.
+    directory: # optional
+    # Use debug to override logs and display diagnostics verbosity
+    logs: # optional
+
+
+    - name: Run PSScriptAnalyzer
+  uses: microsoft/psscriptanalyzer-action@v1.0
+  with:
+    # Specifies the path to the scripts or module to be analyzed. Wildcard characters are supported.
+    path: # default is .\
+    # Uses only the custom rules defined in the specified paths to the analysis. To still use the built-in rules, add the -IncludeDefaultRules switch.
+    customRulePath: # optional
+    # Adds rules defined in subdirectories of the CustomRulePath location.
+    recurseCustomRulePath: # optional
+    # Omits the specified rules from the Script Analyzer test. Wildcard characters are supported.
+    excludeRule: # optional
+    # Invoke default rules along with Custom rules.
+    includeDefaultRules: # optional
+    # Runs only the specified rules in the Script Analyzer test.
+    includeRule: # optional
+    # After running Script Analyzer with all rules, this parameter selects rule violations with the specified severity.
+    severity: # optional
+    # Runs Script Analyzer on the files in the Path directory and all subdirectories recursively.
+    recurse: # optional
+    # Returns rules that are suppressed, instead of analyzing the files in the path.
+    suppressedOnly: # optional
+    # Fixes certain warnings which contain a fix in their DiagnosticRecord.
+    fix: # optional
+    # Exits PowerShell and returns an exit code equal to the number of error records.
+    enableExit: # optional
+    # File path that contains user profile or hash table for ScriptAnalyzer.
+    settings: # optional
+    # Specifies where the path for the sarif file
+    output: # default is results.sarif
+    # Exclude specific files from the sarif results. Uses regex pattern.
+    ignorePattern: # optional
+
+
+    - name: Go-Linty
+  # You may pin to the exact commit or the version.
+  # uses: ArangoGutierrez/GoLinty-Action@3f9802b64a9abdae2a98e6541ccd4d3271ef44d7
+  uses: ArangoGutierrez/GoLinty-Action@go-1.13rc1-alpine
+
+
+  - name: Secret Scan
+  # You may pin to the exact commit or the version.
+  # uses: max/secret-scan@40818319d07ccc6588021ead3c0af76cec2e6496
+  uses: max/secret-scan@1.0.0
+
+
+  - name: Pocket_Lint
+  # You may pin to the exact commit or the version.
+  # uses: PatMyron/pocket-lint@08f2d6e91563008ce4600823b766bf5cb11a1301
+  uses: PatMyron/pocket-lint@0.1
+
+  - name: EditorConfig-Action
+  # You may pin to the exact commit or the version.
+  # uses: zbeekman/EditorConfig-Action@ad87de68f3718e100afb65800195b08ea44b7d9e
+  uses: zbeekman/EditorConfig-Action@v1.1.1
+
+
+  - name: Codecov Action
+  # You may pin to the exact commit or the version.
+  # uses: Atrox/codecov-action@a6a776b04601038256e1904fb80c5fc8e5153f05
+  uses: Atrox/codecov-action@v0.1.3
+
+  - name: Analysis Publisher
+  # You may pin to the exact commit or the version.
+  # uses: digirati-labs/analysis-publisher@ae3f1637651adcbc09101f5bcfb2732dd5df4735
+  uses: digirati-labs/analysis-publisher@0.0.1
+
+  - name: deptrac-action
+  # You may pin to the exact commit or the version.
+  # uses: smoench/deptrac-action@d3f473e20a2e84668239b17ce7e1f16cfd042c7d
+  uses: smoench/deptrac-action@0.14.1
+
+  - name: Lighthouse Audit
+  # You may pin to the exact commit or the version.
+  # uses: jakejarvis/lighthouse-action@a3bcc9973b3ce65beff316b3cac53b92e58dcc12
+  uses: jakejarvis/lighthouse-action@v0.3.2
+
+
+  - name: dotnet-sonarscanner
+  # You may pin to the exact commit or the version.
+  # uses: Secbyte/dotnet-sonarscanner@10230bbd60c5b727532504308cba3c6577deba14
+  uses: Secbyte/dotnet-sonarscanner@v2.3
+  with:
+    # Command to invoke build
+    buildCommand: 
+    # Command to invoke tests
+    testCommand: # optional
+    # Specifies the key of the analyzed project in SonarQube
+    projectKey: 
+    # Specifies the name of the analyzed project in SonarQube
+    projectName: 
+    # The server URL
+    sonarHostname: # optional, default is https://sonarcloud.io
+    # Organisation
+    sonarOrganisation: 
+    # Arguments to append to the begin command
+    beginArguments: # optional
+    # Arguments to append to the end command
+    endArguments: # optional
+
+
+    - name: Node Code Formatter
+  # You may pin to the exact commit or the version.
+  # uses: MarvinJWendt/run-node-formatter@4158ea1a9dadae41161f8e051f0312fd4305d72b
+  uses: MarvinJWendt/run-node-formatter@1.5.2
+
+  - name: sqflint
+  # You may pin to the exact commit or the version.
+  # uses: arma-actions/sqflint@bc970657e0ffc0f6280f8d3a578fdd11fa20e076
+  uses: arma-actions/sqflint@v1.0
+
+  - name: Block fixup commit merge
+  # You may pin to the exact commit or the version.
+  # uses: 13rac1/block-fixup-merge-action@bd5504fb9ca0253e109d98eb86b7debc01970cdc
+  uses: 13rac1/block-fixup-merge-action@v2.0.0
+
+  - name: Codecov Node
+  # You may pin to the exact commit or the version.
+  # uses: iansu/codecov-action-node@a3174bedb5cd1a1439216391fe8a56ce97407172
+  uses: iansu/codecov-action-node@v1.0.1
+  with:
+    # User defined upload name. Visible in Codecov UI
+    name: # optional
+    # Repository upload token - get it from codecov.io
+    token: # optional
+    # Path to coverage file to upload
+    file: # optional
+    # Flag upload to group coverage metrics (e.g. unittests | integration | ui,chrome)
+    flags: # optional
+
+
+- name: Scan with Sonar Scanner
+  # You may pin to the exact commit or the version.
+  # uses: mathrix-education/sonar-scanner@f40ca3aebb6f72ec4887de752b0d739010122504
+  uses: mathrix-education/sonar-scanner@1.0.0
+  with:
+    # The Sonar Scanner version.
+    version: 
+    # Use the bundled JRE.
+    with-jre: # optional, default is false
+    # Default Sonar Scanner options. Read as a YAML document (you may use the pipe '|' YAML operator).
+    options: # optional
+    # Install TypeScript during setup (simply run `npm i typescript`). Required if your project uses Typescript and if the node module `typescript` is  not already installed.
+
+    typescript: # optional, default is false
+    # Fetch a full clone of the repository. Useful when using the SCM feature of Sonar Scanner.
+    unshallow: # optional, default is false
+    # Run Sonar Scanner immediately in the current working directory.
+    scan: # optional, default is false
+    # Additionnal flag to append during the scan. Ignored if `scan` is false.
+    args: # optional
+
+    - name: Codefresh pipeline runner
+  # You may pin to the exact commit or the version.
+  # uses: codefresh-io/codefresh-pipeline-runner@c563a2bb98a7b8522192aaabf79ee9504141f8dc
+  uses: codefresh-io/codefresh-pipeline-runner@v7
+  with:
+    # codefresh cli build variables, see https://codefresh-io.github.io/cli/pipelines/run-pipeline/#setting-variables-through-the-command for more information.
+    args: # optional
+
+    - name: Code Inspector GitHub action
+  # You may pin to the exact commit or the version.
+  # uses: codeinspectorio/github-action@01c818be303e2c4bcec991ca1c51feab753a1e2a
+  uses: codeinspectorio/github-action@v1
+  with:
+    # Token to checkout the repository.
+    repo_token: 
+    # Access key on Code Inspector
+    code_inspector_access_key: 
+    # Secret key on Code Inspector
+    code_inspector_secret_key: 
+    # Minimum grade. Valid options are EXCELLENT, GOOD, NEUTRAL, WARNING, CRITICAL. Leave blank to ignore.
+    min_quality_grade: # default is 
+    # Minimum quality score from 0 (worst) to 100 (best)
+    min_quality_score: # default is 0
+    # Maximum defect rate per line of code (e.g. 0.01 for 1 defect per 100 lines of code). Leave 0 to ignore.
+    max_defects_rate: # default is 0
+    # Maximum number of complex functions rate (e.g. number of complex functions / number of functions). Leave 0 to ignore.
+    max_complex_functions_rate: # default is 0
+    # Maximum number of long functions rate (e.g. number of long functions / number of functions). Leave 0 to ignore.
+    max_long_functions_rate: # default is 0
+    # Project on code inspector. Will use the preferences of this analysis. Leave blank and no preferences are used
+    project_name: # default is 
+    # Timeout before giving up (in case analysis takes too long). Default is 10 minutes
+    max_timeout_sec: # default is 600
+
+
+    - name: rsync deployments
+  # You may pin to the exact commit or the version.
+  # uses: contention/rsync-deployments@980b08d70e94c4ac0169ee5c5acc9ace2fe8ccd4
+  uses: contention/rsync-deployments@v1.0.0
+
+
+
+- name: Jira Login
+  # You may pin to the exact commit or the version.
+  # uses: atlassian/gajira-login@90a599561baaf8c05b080645ed73db7391c246ed
+  uses: atlassian/gajira-login@v2.0.0
+
+  - name: Jira Find issue key
+  # You may pin to the exact commit or the version.
+  # uses: atlassian/gajira-find-issue-key@25176f03aef1ee1edea04179e8d9b629c446869d
+  uses: atlassian/gajira-find-issue-key@v2.0.2
+  with:
+    # Provide a string to extract issue key from
+    string: # optional
+    # Find from predefined place (should be either 'branch', or 'commits')
+    from: # optional, default is commits
+
+    - name: Jira Issue Transition
+  # You may pin to the exact commit or the version.
+  # uses: atlassian/gajira-transition@0fb280dcc874710a4ac5eced8789e1def040e35d
+  uses: atlassian/gajira-transition@v2.0.2
+  with:
+    # Key of the issue to be transitioned
+    issue: 
+    # The transition to apply to the issue, e.g. 'In Progress'
+    transition: # optional
+    # The id of a transition to apply to the issue
+    transitionId: # optional
+
+    - name: Jira Create issue
+  # You may pin to the exact commit or the version.
+  # uses: atlassian/gajira-create@c0a9c69ac9d6aa063fed57201e55336ada860183
+  uses: atlassian/gajira-create@v2.0.1
+  with:
+    # Key of the project
+    project: 
+    # Type of the issue to be created. Example: 'Incident'
+    issuetype: 
+    # Issue summary
+    summary: 
+    # Issue description
+    description: # optional
+    # Additional fields in JSON format
+    fields: # optional
+
+  - name: Jira issue from TODO
+  # You may pin to the exact commit or the version.
+  # uses: atlassian/gajira-todo@c7d98334964a814a6d292ecb81e0b8f762f3fe27
+  uses: atlassian/gajira-todo@v2.0.1
+  with:
+    # Key of the project
+    project: 
+    # Type of the issue to be created. Example: 'Incident'
+    issuetype: 
+    # Issue description
+    description: # optional
+
+    - name: Setup Jira
+  # You may pin to the exact commit or the version.
+  # uses: atlassian/gajira-cli@d64bb926ec760b52c8cf4085cf61d26631862648
+  uses: atlassian/gajira-cli@v2.0.2
+  with:
+    # Version of the CLI to use
+    version: # optional, default is 1.0.20
+
+    - name: Check PR for word
+  # You may pin to the exact commit or the version.
+  # uses: JJ/github-pr-contains-action@16f7c6a0b3d6642067296c06baffc130549e960b
+  uses: JJ/github-pr-contains-action@releases/v1
+  with:
+    # Github token, added magically
+    github-token: # optional
+    # Word that must be contained in the PR body
+    bodyContains: # optional
+    # Word that must be contained in the added code
+    diffContains: # optional
+    # Max number of files changed per PR
+    filesChanged: # optional
+    # Max number of lines changed per PR
+    linesChanged: # optional
+
+    - name: Issue Auto Labeling and Assigning
+  # You may pin to the exact commit or the version.
+  # uses: Naturalclar/issue-action@dc881db370e1faa4bcc32ad5d3fadb6d905d8700
+  uses: Naturalclar/issue-action@v2.0.2
+  with:
+    # Github token
+    github-token: 
+    # JSON array of keywords to look for and labels and assignees to be set when there's a keyword match
+    parameters: 
+    # Whether to check the issue title, the issue body, or both for matching keywords
+    title-or-body: # optional, default is both
+
+    - name: PR Labeler
+  # You may pin to the exact commit or the version.
+  # uses: TimonVS/pr-labeler-action@bd0b592a410983316a454e3d48444608f028ec8e
+  uses: TimonVS/pr-labeler-action@v3.1.0
+  with:
+    # The path for the label configurations
+    configuration-path: # optional, default is .github/pr-labeler.yml
+
+    - name: Criterion Compare PRs
+  # You may pin to the exact commit or the version.
+  # uses: boa-dev/criterion-compare-action@51d2def841e5e950b6d83e7337baeb13c0bd2b85
+  uses: boa-dev/criterion-compare-action@v2.0.0
+  with:
+    # Github Token required to upload to the PR
+    token: # default is 
+    # Sets the directory to run the benchmarks, relative to the project directory
+    cwd: # optional, default is 
+
+    - name: Delete multiple branches
+  # You may pin to the exact commit or the version.
+  # uses: dawidd6/action-delete-branch@d1efac9a6f7a9b408d4e8ff663a99c1fbac17b3f
+  uses: dawidd6/action-delete-branch@v3.1.0
+  with:
+    # GitHub token
+    github_token: # optional, default is ${{github.token}}
+    # Owner of the repository. The owner will be deducted from env vars if it is not set
+    owner: # optional
+    # The repository containing the branch(es) to be deleted. The repository name will be deducted from env vars if it is not set
+    repository: # optional
+    # Branches to delete (comma separated)
+    branches: # optional
+    # PR numbers whose head branches should be deleted (comma separated)
+    numbers: # optional
+    # Additional prefix to append to every branch name
+    prefix: # optional
+    # Additional suffix to append to every branch name
+    suffix: # optional
+    # If set to `true` the workflow will continue if a branch reference is not found
+    soft_fail: # optional
+
+    - name: S3 Backup
+  # You may pin to the exact commit or the version.
+  # uses: peter-evans/s3-backup@e5ff6b50200c15778d0778d4dc79d9215808c30b
+  uses: peter-evans/s3-backup@v1.0.2
+
+  - name: Periodic PR Labeler
+  # You may pin to the exact commit or the version.
+  # uses: ilyam8/periodic-pr-labeler@cf4af39ff28709e0dc6171e142e5fb4956d7d4ab
+  uses: ilyam8/periodic-pr-labeler@v0.1.1
+
+  - name: Milestone Actions
+  # You may pin to the exact commit or the version.
+  # uses: kyoyadmoon/milestone-actions@901b16ea36f0d4a63bf2f3b5f576a42ac6e6a8e7
+  uses: kyoyadmoon/milestone-actions@v1.0.0
+  with:
+    # The title (version) for the milestone
+    title: 
+    # An optional description for the milestone
+    description: # optional
+    # An optional timestamp for due date of the milestone
+    due_on: # optional
+
+    - name: Update Changelog
+  # You may pin to the exact commit or the version.
+  # uses: vemel/update-changelog@7381108332c7fb58b41e4dce46160ee9054cad13
+  uses: vemel/update-changelog@0.0.1
+  with:
+    # New product version (env VERSION)
+    version: # optional
+    # GitHub Token (env GITHUB_TOKEN)
+    token: # optional
+    # GitHub repository name (env GITHUB_REPOSITORY)
+    repository: # optional
+    # Path to CHANGELOG.md (./CHANGELOG.md)
+    path: # optional
+
+    - name: GitHub Pull Request Rechecker
+  # You may pin to the exact commit or the version.
+  # uses: yellowmegaman/prtrigger@15af7b8a4d1b6958b34e446f1d874acbf399713d
+  uses: yellowmegaman/prtrigger@v0.9
+  with:
+    # what to say in trigger commit message
+    commit_message: # optional, default is triggered
+    # user to send commit from
+    git_user: # optional, default is gh
+    # user email to send commit from
+    git_email: # optional, default is gh@gh.gh
+
+    - name: GitHub Project Bot
+  # You may pin to the exact commit or the version.
+  # uses: subhamX/github-project-bot@8e2b254ef9a80d882a95fa6fb37bb0665aa1de72
+  uses: subhamX/github-project-bot@v1.0.0
+  with:
+    # REPO_URL: Repository URL
+    REPO_URL: 
+    # PROJECT_URL: Project URL
+    PROJECT_URL: 
+    # COLUMN_NAME: Column Name where new cards should be placed.
+    COLUMN_NAME: 
+    # ACCESS_TOKEN: Access Token to create new Project Card
+    ACCESS_TOKEN: 
+
+    - name: Colab Badge Action
+  # You may pin to the exact commit or the version.
+  # uses: trsvchn/colab-badge-action@e2df296bd74d0b4041dddd03ddba50833b4148c0
+  uses: trsvchn/colab-badge-action@v3.1
+  with:
+    # Which notebooks to check: all or just committed: all | latest
+    check: # optional, default is all
+    # Update badges. Only badges added by this action will be updated
+    update: # optional, default is true
+    # Branch that the badge will target. Defaults to the current branch.
+    target_branch: # optional, default is 
+    # Repository that the badge will target. Defaults to the current repository.
+    target_repository: # optional, default is 
+
+    - name: Rulesets
+  # You may pin to the exact commit or the version.
+  # uses: rulesets/rulesets@3330a265071a520e03c271f6d3f126b3956221fe
+  uses: rulesets/rulesets@v1.0.0-beta
+  with:
+    # Path to the rulesets file
+    rulesets: # optional, default is .github/rulesets.yaml
+    # Github auth token
+    token: 
+
+    - name: Check email domain
+  # You may pin to the exact commit or the version.
+  # uses: higebu/actions-email-domain@a540fe866045ed1e9e5e606287834ffc6d5ef2f7
+  uses: higebu/actions-email-domain@v1.0.1
+  with:
+    # comma-separated email domains
+    domains: # default is 
+
+    - name: Unfurl Dropbox Screenshots
+  # You may pin to the exact commit or the version.
+  # uses: roderik/unfurl-dropbox-screenshots@f461a4642bcb558ec84b884d568408f84dd4dc6b
+  uses: roderik/unfurl-dropbox-screenshots@v3
+  with:
+    # A GitHub access token with access to issues
+    repo-token: 
+
+    - name: URLs Checker
+  # You may pin to the exact commit or the version.
+  # uses: RobertMrowiec/URLs-checker@806cfd9a439887d8a16f75e0ae22e04fbfde7866
+  uses: RobertMrowiec/URLs-checker@v1
+
+  - name: VTEX Lint action
+  # You may pin to the exact commit or the version.
+  # uses: vtex/action-lint@40cdcc06a131f71e18d6c502663cf3d444e873ab
+  uses: vtex/action-lint@1.0.0
+
+  - name: Changelog Enforcer
+  # You may pin to the exact commit or the version.
+  # uses: dangoslen/changelog-enforcer@c2a8bfa5b9aa4c975cd48bb9764074d652f8637b
+  uses: dangoslen/changelog-enforcer@v2.2.0
+  with:
+    # Path to the changelog file relative to the repository
+    changeLogPath: # default is CHANGELOG.md
+    # "List of labels used to skip enforcing of the changelog during a pull request. Each label name is comma seperated and only one label needs to be 
+present for enforcement to be skipped.
+
+For example, if `label-1,label-2` was supplied as the `skipLabels`, `label-1` _or_ `label-2` would skip the enforcer. 
+
+Each label is trimmed for leading and trailing spaces since GitHub labels do not allow for leading or trailing spaces. Thus, the following lists are equivalent:
+* `label-1,label-2`
+* `label-1 , label-2`
+* `label-1  ,label-2`"
+
+    skipLabels: # default is Skip-Changelog
+    # The latest version of the software expected in the changelog. Should be in the form of 'v1.1.0' etc.
+    expectedLatestVersion: # default is 
+    # "A regex pattern used to extract the versions from the changelog. Changelog Enforcer assumes the use of the KeepAChangelog.com convention, and 
+as such looks for a line starting with '## [version] - date. Your regex should match the version as the 2nd match group.
+The regex pattern is used with global and multiline flags. Also note that since this
+is passed as a String, you will need to escape a backslash \ character via \\"
+
+    versionPattern: # default is ^## \[((v|V)?\d*\.\d*\.\d*-?\w*|unreleased|Unreleased|UNRELEASED)\]
+    # The error message logged and returned in the 'errorMessage' output when no update to the changelog has been found.
+    missingUpdateErrorMessage: # optional
+
+    - name: Crowdin Updater
+  # You may pin to the exact commit or the version.
+  # uses: pablo1v/crowdin-updater@e5a407beb0ad2acb8f2110f99eb863116a82c93b
+  uses: pablo1v/crowdin-updater@v1.0.0
+  with:
+    # Message that will be linked to the commit.
+    commit-message: # optional, default is Upload Translates
+    # Directory where translations are.
+    locale-path: 
+    # Directory where the translations will be copied.
+    upload-path: 
+    # Github repository that new translations will be sent.
+    target-repository: 
+    # Name that will be linked to the commit.
+    user-name: # optional, default is TranslateAction
+    # Email that will be linked to the commit.
+    user-email: # optional, default is translate@action.github
